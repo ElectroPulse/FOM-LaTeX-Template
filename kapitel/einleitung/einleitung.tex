@@ -1,16 +1,12 @@
 \section{Einleitung}
-Dies soll eine \LaTeX{}-Vorlage für den persönlichen Gebrauch werden. Sie hat weder einen Anspruch auf Richtigkeit, noch auf Vollständigkeit. Die Quellen liegen auf Github zur allgemeinen Verwendung. Verbesserungen sind jederzeit willkommen.
 
-\subsection{Zielsetzung}
-Kleiner Reminder für mich in Bezug auf die Dinge, die wir bei der Thesis beachten sollten und \LaTeX{}-Vorlage für die Thesis.
+Das einleitende Kapitel begründet die Relevanz der Produktionsplanung und -steuerung für Fertigungsunternehmen und leitet daraus die Problemstellung der Arbeit ab. Darauf aufbauend werden die Forschungsfrage präzisiert und der Untersuchungsgegenstand abgegrenzt, bevor abschließend Vorgehensweise und Aufbau der Arbeit skizziert werden.
 
-\subsection{Aufbau der Arbeit}
-Kapitel \ref{infos} enthält die Inhalte des Thesis-Days und alles, was zum inhaltlichen erstellen der Thesis relevant sein könnte. In Kapitel \ref{latexDetails} \nameref{latexDetails} findet ihr wichtige Anmerkungen zu \LaTeX{}, wobei die wirklich wichtigen Dinge im Quelltext dieses Dokumentes stehen (siehe auch die Verzeichnisstruktur in Abbildung \ref{fig:verzeichnisStruktur}).
+\subsection{Problemstellung und Relevanz}
+Fertigungsunternehmen stehen vor der Aufgabe, schwankende Marktnachfrage, begrenzte Kapazitäten und mehrstufige Materialstrukturen so aufeinander abzustimmen, dass das richtige Produkt in der richtigen Menge termin- und kostengerecht bereitsteht. Die Produktionsplanung und -steuerung (PPS) ist dabei ein zentraler Hebel der Wettbewerbsfähigkeit, weil sie unmittelbar auf Liefertreue, Bestandshöhe und Herstellkosten wirkt.\footcite[Vgl.][S. 22 ff.]{Kurbel.2021} Eine isolierte, manuelle Abstimmung dieses Spannungsfelds aus Nachfrage, Kapazität und Materialverfügbarkeit führt regelmäßig zu Überbeständen, Fehlmengen und intransparenten Abläufen.\footcites[Vgl.][S. 22 ff.]{Kurbel.2021}[ergänzend][Folie 27]{SAPUCC.2023} Integrierte ERP-Systeme begegnen diesem Problem, indem sie Planungs-, Ausführungs- und Abrechnungsdaten auf einer gemeinsamen Datenbasis verknüpfen und so eine durchgängige, konsistente Steuerung ermöglichen.\footcite[Vgl.][S. 212 ff.]{Kurbel.2021}
 
+\subsection{Zielsetzung und Forschungsfrage}
+Hieran knüpft die Zielsetzung der Arbeit an. Untersucht wird, \textbf{wie SAP S/4HANA den durchgängigen Planungs- und Steuerungsprozess abbildet und inwieweit die einzelnen Prozessschritte -- von der Absatz- und Produktionsgrobplanung (SOP) über Programmplanung und Materialbedarfsplanung (MRP) bis zur Auftragsabrechnung -- das beschriebene Abstimmungsproblem lösen.} Der Betrachtungsschwerpunkt liegt auf der Lagerfertigung (Make-to-Stock) als Form der diskreten Fertigung; zugrunde gelegt wird die Planungsstrategie \enquote{Planung mit Endmontage} (Strategie 40).\footcites[Vgl.][Folie 32 f.]{SAPUCC.2023}[][S. 1]{Boldau.2023} Die Variantenkonfiguration bzw. Kundeneinzelfertigung wird nicht vertieft, sondern lediglich als Ausblick aufgegriffen.
 
-\begin{figure}[H]
-\caption{Verzeichnisstruktur der \LaTeX{}-Datein}\label{fig:verzeichnisStruktur}
-\includegraphics[width=0.9\textwidth]{verzeichnisStruktur}
-\\
-Quelle: Eigene Darstellung
-\end{figure}
+\subsection{Vorgehensweise und Aufbau der Arbeit}
+Die Arbeit ist zweigeteilt aufgebaut. Teil A leitet die betriebswirtschaftlich-theoretischen Grundlagen der PPS her: die Begriffsabgrenzung, die Planungshierarchie des Sukzessivplanungskonzepts, die Stammdaten, die Mechanik der Materialbedarfsplanung sowie die Fertigungsstrategien. Teil B überträgt diese Konzepte auf den integrierten Fertigungsprozess der Modellfirma Global Bike und analysiert ihn schrittweise am Beispiel des Deluxe Touring Bike -- von der Stammdatenpflege bis zur controllingseitigen Auftragsabrechnung. Datengrundlage des Praxisteils ist das Curriculum \enquote{Einführung in S/4HANA mit Global Bike} des SAP University Competence Center Magdeburg.\footcites[Vgl.][]{Boldau.2023}[][]{SAPUCC.2023} Eine kritische Würdigung des Prozesses sowie ein zusammenfassendes Fazit mit Ausblick schließen die Arbeit ab.

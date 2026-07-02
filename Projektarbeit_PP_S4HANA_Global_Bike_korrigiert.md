@@ -7,11 +7,30 @@
 3. Praxisbeispiel: Der integrierte PP-Prozess bei Global Bike
 4. Fazit
 - Literaturverzeichnis
-- Kennzeichnung des KI-Einsatzes
+- KI-Hilfsmittelverzeichnis
+
+---
+
+## Abkürzungsverzeichnis[^ki-abkverz]
+
+| Abkürzung | Bedeutung |
+|---|---|
+| ATP | Available-to-Promise |
+| ERP | Enterprise Resource Planning |
+| MAD | Mean Absolute Deviation (mittlere absolute Abweichung) |
+| MPS | Master Production Scheduling (Leitteileplanung) |
+| MRP | Material Requirements Planning (Materialbedarfsplanung) |
+| MRP II | Manufacturing Resource Planning |
+| PP | Produktionsplanung (SAP-Modul) |
+| PPS | Produktionsplanung und -steuerung |
+| SOP | Sales and Operations Planning (Absatz- und Produktionsgrobplanung) |
+| VC | Variantenkonfiguration |
 
 ---
 
 ## 1 Einleitung
+
+Das einleitende Kapitel begründet die Relevanz der Produktionsplanung und -steuerung für Fertigungsunternehmen und leitet daraus die Problemstellung der Arbeit ab. Darauf aufbauend werden die Forschungsfrage präzisiert und der Untersuchungsgegenstand abgegrenzt, bevor abschließend Vorgehensweise und Aufbau der Arbeit skizziert werden.
 
 ### 1.1 Problemstellung und Relevanz
 
@@ -19,15 +38,17 @@ Fertigungsunternehmen stehen vor der Aufgabe, schwankende Marktnachfrage, begren
 
 ### 1.2 Zielsetzung und Forschungsfrage
 
-Hieran knüpft die Zielsetzung der Arbeit an. Untersucht wird, **wie SAP S/4HANA den durchgängigen Planungs- und Steuerungsprozess abbildet und inwieweit die einzelnen Prozessschritte – von der Absatz- und Produktionsgrobplanung (SOP) über Programmplanung und Materialbedarfsplanung (MRP) bis zur Auftragsabrechnung – das beschriebene Abstimmungsproblem lösen.** Der Betrachtungsschwerpunkt liegt auf der Lagerfertigung (Make-to-Stock) als Form der diskreten Fertigung; zugrunde gelegt wird die Planungsstrategie „Planung mit Endmontage" (Strategie 40).[^strategie] Die Variantenkonfiguration bzw. Kundeneinzelfertigung wird nicht vertieft, sondern lediglich als Ausblick aufgegriffen.
+Hieran knüpft die Zielsetzung der Arbeit an. Untersucht wird, **wie SAP S/4HANA den durchgängigen Planungs- und Steuerungsprozess abbildet und inwieweit die einzelnen Prozessschritte – von der Absatz- und Produktionsgrobplanung (SOP) über Programmplanung und Materialbedarfsplanung (MRP) bis zur Auftragsabrechnung – das beschriebene Abstimmungsproblem lösen.** Der Betrachtungsschwerpunkt liegt auf der Lagerfertigung (Make-to-Stock) als Form der diskreten Fertigung; zugrunde gelegt wird die Planungsstrategie „Planung mit Endmontage“ (Strategie 40).[^strategie] Die Variantenkonfiguration bzw. Kundeneinzelfertigung wird nicht vertieft, sondern lediglich als Ausblick aufgegriffen.
 
 ### 1.3 Vorgehensweise und Aufbau der Arbeit
 
-Die Arbeit ist zweigeteilt aufgebaut. Teil A leitet die betriebswirtschaftlich-theoretischen Grundlagen der PPS her: die Begriffsabgrenzung, die Planungshierarchie des Sukzessivplanungskonzepts, die Stammdaten, die Mechanik der Materialbedarfsplanung sowie die Fertigungsstrategien. Teil B überträgt diese Konzepte auf den integrierten Fertigungsprozess der Modellfirma Global Bike und analysiert ihn schrittweise am Beispiel des Deluxe Touring Bike – von der Stammdatenpflege bis zur controllingseitigen Auftragsabrechnung. Datengrundlage des Praxisteils ist das Curriculum „Einführung in S/4HANA mit Global Bike" des SAP University Competence Center Magdeburg.[^curriculum] Eine kritische Würdigung des Prozesses sowie ein zusammenfassendes Fazit mit Ausblick schließen die Arbeit ab.
+Die Arbeit ist zweigeteilt aufgebaut. Teil A leitet die betriebswirtschaftlich-theoretischen Grundlagen der PPS her: die Begriffsabgrenzung, die Planungshierarchie des Sukzessivplanungskonzepts, die Stammdaten, die Mechanik der Materialbedarfsplanung sowie die Fertigungsstrategien. Teil B überträgt diese Konzepte auf den integrierten Fertigungsprozess der Modellfirma Global Bike und analysiert ihn schrittweise am Beispiel des Deluxe Touring Bike – von der Stammdatenpflege bis zur controllingseitigen Auftragsabrechnung. Datengrundlage des Praxisteils ist das Curriculum „Einführung in S/4HANA mit Global Bike“ des SAP University Competence Center Magdeburg.[^curriculum] Eine kritische Würdigung des Prozesses sowie ein zusammenfassendes Fazit mit Ausblick schließen die Arbeit ab.
 
 ---
 
 ## 2 Wissenschaftliche Grundlagen
+
+Dieses Kapitel legt das theoretische Fundament der Arbeit. Ausgehend von der begrifflichen Einordnung der Produktionsplanung und -steuerung werden die Planungshierarchie des Sukzessivplanungskonzepts, die planungsrelevanten Stammdaten, die Mechanik der Materialbedarfsplanung, der Übergang von der Planung zur Ausführung sowie die Fertigungsstrategien hergeleitet. Diese Konzepte bilden den Bezugsrahmen für die Analyse des Praxisbeispiels in Kapitel 3.
 
 ### 2.1 Begriffliche Einordnung der Produktionsplanung und -steuerung
 
@@ -61,11 +82,13 @@ Die Warenbewegungen werden über Bewegungsarten gesteuert und buchhalterisch erf
 
 Fertigungsstrategien legen fest, ob und wie weit die Produktion bereits vor dem Eingang konkreter Kundenaufträge vorgeplant wird. SAP unterscheidet hierbei vor allem die Lagerfertigung (Make-to-Stock), die Kundeneinzelfertigung (Make-to-Order) sowie konfigurierbare Materialien im Sinne einer Mass Customization.[^strategien-arten] Bei der Lagerfertigung erfolgt die Planung über unabhängigen (Plan-)Bedarf und der Vertrieb aus dem Lagerbestand, während bei der Kundeneinzelfertigung die Produktion unmittelbar durch Kundenaufträge angestoßen wird.[^strategien-lager] Theoretisch lässt sich diese Abgrenzung über den Entkopplungspunkt (Order Penetration Point) fassen: Er markiert die Stelle in der Wertschöpfungskette, bis zu der kundenanonym auf Basis von Prognosen vorgeplant und ab der kundenauftragsbezogen gefertigt wird.[^opp]
 
-In SAP konkretisieren sich die Strategien in Strategiegruppen; für die Lagerfertigung steht etwa die Strategie 40 (Planung mit Endmontage).[^strategien-lager] Der im Praxisteil betrachtete Global-Bike-Prozess nutzt eben diese Strategiegruppe 40 (Vorplanung mit Endmontage): Die Bedarfe werden über Planprimärbedarfe prognosebasiert vorgeplant, und auch die Endmontage wird vor dem Auftragseingang eingeplant; der Entkopplungspunkt liegt damit nahe am Fertigerzeugnis bzw. am Lager.[^gb-strategie40] Der untersuchte Prozess ist folglich der diskreten Make-to-Stock-Fertigung zuzuordnen – eine Einordnung, die den Bezugsrahmen für die spätere kritische Würdigung des Verfahrens bildet.
+In SAP konkretisieren sich die Strategien in Strategiegruppen; für die Lagerfertigung steht etwa die Strategie 40 (Planung mit Endmontage) zur Verfügung.[^strategien-lager] Der im Praxisteil betrachtete Global-Bike-Prozess nutzt eben diese Strategiegruppe 40 (Vorplanung mit Endmontage): Die Bedarfe werden über Planprimärbedarfe prognosebasiert vorgeplant, und auch die Endmontage wird vor dem Auftragseingang eingeplant; der Entkopplungspunkt liegt damit nahe am Fertigerzeugnis bzw. am Lager.[^gb-strategie40] Der untersuchte Prozess ist folglich der diskreten Make-to-Stock-Fertigung zuzuordnen – eine Einordnung, die den Bezugsrahmen für die spätere kritische Würdigung des Verfahrens bildet.
 
 ---
 
 ## 3 Praxisbeispiel: Der integrierte PP-Prozess bei Global Bike
+
+Dieses Kapitel überträgt die theoretischen Konzepte aus Kapitel 2 auf den integrierten Fertigungsprozess der Modellfirma Global Bike. Nach der Vorstellung des Szenarios wird der Prozess schrittweise durchlaufen – von der Stammdatenvorbereitung über Grob- und Bedarfsplanung bis zu Fertigungsausführung und controllingseitigem Abschluss – und abschließend kritisch gewürdigt.
 
 ### 3.1 Vorstellung der Modellfirma und des Szenarios
 
@@ -73,11 +96,11 @@ Global Bike ist das Modellunternehmen des Curriculums – ein internationaler Fa
 
 Betrachtungsobjekt ist das Fertigerzeugnis Deluxe Touring Bike (DXTR, in Schwarz, Silber und Rot), das in Dallas in diskreter Fertigung montiert wird. Seine mehrstufige Produktstruktur umfasst einen farbspezifischen Rahmen, Räder und weitere Komponenten, die über Montagevorgänge zum Endprodukt zusammengeführt werden.[^gb-produkt] Für die Grobplanung sind die Fahrräder zu einer Produktgruppe zusammengefasst.[^gb-produktgruppe] Getragen wird der Prozess arbeitsteilig von mehreren Rollen – u. a. Fertigungsleiter (Jun Lee), Werksleiter (Hiro Abe) und Controller (Jamie Shamblin) – aus den Bereichen Produktionsplanung (PP) und Materialwirtschaft (MM).[^gb-rollen]
 
-Das Szenario operationalisiert damit die Konzepte aus Kapitel 2: die Ebenen Mandant/Buchungskreis/Werk/Lagerort die Organisationsstruktur, die Produktgruppe die aggregierte SOP-Ebene (Kap. 2.2), der mehrstufige Aufbau des Fahrrads die Stückliste (Kap. 2.3) und seine Lagerfertigung die Strategie „Planung mit Endmontage" (Strategiegruppe 40, Kap. 2.6). Der folgende Abschnitt beginnt daher mit der Vorbereitung der Stammdaten.
+Das Szenario operationalisiert damit die Konzepte aus Kapitel 2: die Ebenen Mandant/Buchungskreis/Werk/Lagerort konkretisieren die Organisationsstruktur, die Produktgruppe die aggregierte SOP-Ebene (Kap. 2.2), der mehrstufige Aufbau des Fahrrads die Stückliste (Kap. 2.3) und seine Lagerfertigung die Strategie „Planung mit Endmontage“ (Strategiegruppe 40, Kap. 2.6). Der folgende Abschnitt beginnt daher mit der Vorbereitung der Stammdaten.
 
 ### 3.2 Vorbereitung der Stammdaten
 
-Bevor geplant werden kann, sind die Stammdaten des Deluxe Touring Bike um planungsrelevante Angaben zu erweitern. In der Rolle Fertigungsleiter wird der werksspezifische Materialstammsatz (DL00) angepasst: In der Dispositionssicht wird die Strategiegruppe 40 (Vorplanung mit Endmontage) gesetzt und damit die Make-to-Stock-Strategie aus Kap. 2.6 verankert; in der Prognosesicht werden zwölf Initialisierungsperioden hinterlegt, in den Steuerungsdaten der Optimierungsgrad „F (Fein)" mit Parameteroptimierung gewählt und die Glättungsfaktoren gesetzt: Alpha 0,20 (Grundwert), Beta 0,10 (Trend), Gamma 0,30 (Saison) und Delta 0,30 (MAD).[^matstamm-praxis] Diese Werte steuern die exponentielle Glättung der Absatzprognose (Kap. 2.2) und werden analog für die silberne und schwarze Variante gepflegt.
+Bevor geplant werden kann, sind die Stammdaten des Deluxe Touring Bike um planungsrelevante Angaben zu erweitern. In der Rolle Fertigungsleiter wird der werksspezifische Materialstammsatz (DL00) angepasst: In der Dispositionssicht wird die Strategiegruppe 40 (Vorplanung mit Endmontage) gesetzt und damit die Make-to-Stock-Strategie aus Kap. 2.6 verankert; in der Prognosesicht werden zwölf Initialisierungsperioden hinterlegt, in den Steuerungsdaten der Optimierungsgrad „F (Fein)“ mit Parameteroptimierung gewählt und die Glättungsfaktoren gesetzt: Alpha 0,20 (Grundwert), Beta 0,10 (Trend), Gamma 0,30 (Saison) und Delta 0,30 (MAD, mittlere absolute Abweichung).[^matstamm-praxis] Diese Werte steuern die exponentielle Glättung der Absatzprognose (Kap. 2.2) und werden analog für die silberne und schwarze Variante gepflegt.
 
 Anschließend wird der Arbeitsplan angepasst. Er ist über Arbeitsplangruppe und Plangruppenzähler definiert, referenziert das Material und enthält je Vorgang Vorgabewerte und Zeitelemente für die Terminierung.[^arbeitsplan-praxis] Kern der Anpassung ist die Zuordnung (Allokation) der Stücklistenkomponenten zu den Vorgängen: Rahmen und Sitz zu Vorgang 0020, Lenker zu 0030, Aluminiumrad und Kettenschaltung zu 0040, Kette (0050), Bremsanlage (0060), Pedale (0070) sowie Garantiedokument und Verpackung zu 0100. Damit ist festgelegt, welche Komponente in welchem Fertigungsschritt verbaut wird – ein abhängiger Prozess, bei dem jeder Vorgang auf dem vorhergehenden aufsetzt.[^komponenten-praxis]
 
@@ -85,9 +108,9 @@ Diese Vorbereitung bestätigt die in Kap. 2.3 hergeleitete Rolle der Stammdaten:
 
 ### 3.3 Absatz- und Produktionsgrobplanung (SOP)
 
-Im vierten Schritt legt der Fertigungsleiter für die Produktgruppe (PG-DXTR, DL00) einen zwölfmonatigen Absatz- und Produktionsgrobplan (SOP) an, der Plandaten konsolidiert und künftige Mengen prognostiziert. Grundlage ist der historische Verbrauch – in der Fallstudie vorgegebene Vergangenheitswerte (05.2017 bis 03.2021) –; über die automatische Modellauswahl erkennt das System Trend und Saison und wendet ein Saison-Trend-Modell an, womit die Prognosemodelle aus Kap. 2.2 praktisch umgesetzt werden.[^sop-prognose] Aus dem Absatzplan wird ein absatzsynchroner Produktionsplan abgeleitet und um eine Zielreichweite (fünf Perioden) ergänzt, sodass die Produktionsmengen den Absatz decken und den gewünschten Lagerbestand sichern.[^sop-produktionsplan]
+Im vierten Schritt legt der Fertigungsleiter für die Produktgruppe (PG-DXTR, DL00) einen zwölfmonatigen Absatz- und Produktionsgrobplan (SOP) an, der Plandaten konsolidiert und künftige Mengen prognostiziert. Grundlage ist der historische Verbrauch, in der Fallstudie vorgegeben als Vergangenheitswerte von Mai 2017 bis März 2021; über die automatische Modellauswahl erkennt das System Trend und Saison und wendet ein Saison-Trend-Modell an, womit die Prognosemodelle aus Kap. 2.2 praktisch umgesetzt werden.[^sop-prognose] Aus dem Absatzplan wird ein absatzsynchroner Produktionsplan abgeleitet und um eine Zielreichweite (fünf Perioden) ergänzt, sodass die Produktionsmengen den Absatz decken und den gewünschten Lagerbestand sichern.[^sop-produktionsplan]
 
-Da der SOP langfristig und aggregiert plant, enthält er noch keine diskreten Materialbedarfe; diese entstehen erst mit der Übergabe an die Programmplanung, die die Produktgruppenplanung auf die einzelnen Materialien herunterbricht (Übergabestrategie „Produktionsplan Material(ien) als Anteil PG").[^uebergabe] Dabei entstehen Planprimärbedarfe für die drei Fahrräder, aufgeteilt nach hinterlegtem Anteil – DXTR1 40 %, DXTR2 30 %, DXTR3 30 %.[^planprimaerbedarf] Damit ist der Übergang von der Grobplanung (Kap. 2.2) zur materialgenauen Feinplanung vollzogen; der Planprimärbedarf ist Ausgangspunkt der Bedarfsplanung.
+Da der SOP langfristig und aggregiert plant, enthält er noch keine diskreten Materialbedarfe; diese entstehen erst mit der Übergabe an die Programmplanung, die die Produktgruppenplanung auf die einzelnen Materialien herunterbricht (Übergabestrategie „Produktionsplan Material(ien) als Anteil PG“).[^uebergabe] Dabei entstehen Planprimärbedarfe für die drei Fahrräder, aufgeteilt nach hinterlegtem Anteil – DXTR1 40 %, DXTR2 30 %, DXTR3 30 %.[^planprimaerbedarf] Damit ist der Übergang von der Grobplanung (Kap. 2.2) zur materialgenauen Feinplanung vollzogen; der Planprimärbedarf ist Ausgangspunkt der Bedarfsplanung.
 
 ### 3.4 Programmplanung und Bedarfsplanung (MPS/MRP)
 
@@ -95,19 +118,19 @@ Vor dem Planungslauf prüft der Werksleiter in der Programmplanung, ob für die 
 
 Inhaltlich führt das System die in Kap. 2.4 beschriebene Nettobedarfsrechnung durch: Bestand und feste Zugänge werden dem Sicherheitsbestand und den Bedarfen gegenübergestellt; ergibt sich eine Unterdeckung (dispositiv verfügbare Menge kleiner als null), legt die MRP Beschaffungsvorschläge – Planaufträge bzw. Bestellanforderungen – in der durch das Losgrößenverfahren bestimmten Menge an.[^mrp-netto]
 
-Das Ergebnis zeigt die dynamische Bedarfs-/Bestandsliste: Für das rote Fahrrad weist sie zunächst keinen Bestand und keine frei verfügbare Menge aus; die Einträge lassen sich zu Periodensummen aus Planprimärbedarfen, geplanten Zugängen und ATP-Mengen verdichten.[^bedarfsliste] Über den Bedarfsverursacher wird sichtbar, dass der erste Planauftrag den Sicherheitsbestand und den ersten Planprimärbedarf deckt. Damit ist die Kette von der Grobplanung bis zum konkreten Planauftrag (Kap. 2.4) geschlossen.[^bedarfsverursacher]
+Das Ergebnis zeigt die dynamische Bedarfs-/Bestandsliste: Für das rote Fahrrad weist sie zunächst keinen Bestand und keine frei verfügbare Menge aus; die Einträge lassen sich zu Periodensummen aus Planprimärbedarfen, geplanten Zugängen und ATP-Mengen (Available-to-Promise, frei verfügbare Mengen) verdichten.[^bedarfsliste] Über den Bedarfsverursacher wird sichtbar, dass der erste Planauftrag den Sicherheitsbestand und den ersten Planprimärbedarf deckt. Damit ist die Kette von der Grobplanung bis zum konkreten Planauftrag (Kap. 2.4) geschlossen.[^bedarfsverursacher]
 
 ### 3.5 Fertigungsausführung
 
 Zur Ausführung wird der Planauftrag aus der Bedarfs-/Bestandsliste in einen Fertigungsauftrag umgewandelt. Dabei terminiert das System, prüft die Verfügbarkeit, reserviert die Komponenten laut Stückliste, gibt den Auftrag frei und berechnet die Plankosten.[^umwandlung-praxis] Damit die Fertigung starten kann, werden die zuvor leeren Komponentenbestände über einen Wareneingang ins Lager aufgefüllt – in der Fallstudie vereinfacht ohne den vorgelagerten Beschaffungsprozess.[^wareneingang-lager]
 
-Anschließend bucht der Lagerarbeiter den Warenausgang der Komponenten mit Bezug auf den Fertigungsauftrag über die Bewegungsart 261 (Verbrauch für Auftrag): Die reservierten Materialien werden aus den Lagerorten entnommen – das Aluminiumrad aus dem Halbfabrikatelager (SF00), die übrigen aus dem Rohstofflager (RM00) –, dem Auftrag als Ist-Kosten zugeordnet und über einen Material-, Buchhaltungs- und Kostenrechnungsbeleg fortgeschrieben.[^warenausgang-261] Nach der Montage meldet der Fertigungsarbeiter die Fertigstellung zurück (Endrückmeldung mit Reservierungsausbuchung und Gutmenge); das System berechnet die Fertigungskosten, und der Auftragsstatus wechselt von „freigegeben" zu „rückgemeldet".[^rueckmeldung-praxis]
+Anschließend bucht der Lagerarbeiter den Warenausgang der Komponenten mit Bezug auf den Fertigungsauftrag über die Bewegungsart 261 (Verbrauch für Auftrag): Die reservierten Materialien werden aus den Lagerorten entnommen – das Aluminiumrad aus dem Halbfabrikatelager (SF00), die übrigen aus dem Rohstofflager (RM00) –, dem Auftrag als Ist-Kosten zugeordnet und über einen Material-, Buchhaltungs- und Kostenrechnungsbeleg fortgeschrieben.[^warenausgang-261] Nach der Montage meldet der Fertigungsarbeiter die Fertigstellung zurück (Endrückmeldung mit Reservierungsausbuchung und Gutmenge); das System berechnet die Fertigungskosten, und der Auftragsstatus wechselt von „freigegeben“ zu „rückgemeldet“.[^rueckmeldung-praxis]
 
 Den Abschluss bildet der Wareneingang des fertigen Fahrrads in das Fertigerzeugnislager (FG00), mit dem der Wert des hergestellten Materials in den Auftrag fortgeschrieben wird.[^wareneingang-fe] Der Ablauf entspricht damit exakt der in Kap. 2.5 hergeleiteten Logik aus Auftragsumwandlung, bewegungsartengesteuerten Warenbewegungen, Rückmeldung und Belegerzeugung.
 
 ### 3.6 Controllingseitiger Abschluss
 
-Nach der Ausführung prüft der Controller in der Fertigungskostenanalyse die dem Auftrag zugeordneten Kosten; die Übersicht stellt summierte Soll- und Ist-Kosten gegenüber und weist Abweichungen aus (die Gemeinkostenzuschläge erscheinen nur in den Soll-Kosten).[^kosten-anzeige] Im letzten Schritt rechnet der Controller den Fertigungsauftrag ab (Istabrechnung im Kostenrechnungskreis NA00, Periode gleich laufender Monat): Die zunächst nur temporär erfassten Kosten werden einem Kostenobjekt zugewiesen und der Auftrag entlastet.[^abrechnung-praxis] Der Lauf erfolgt zunächst als Testlauf mit dem Bericht „Ist/Plan/Abweichung", bevor er als Echtlauf gebucht wird.[^abrechnung-lauf]
+Nach der Ausführung prüft der Controller in der Fertigungskostenanalyse die dem Auftrag zugeordneten Kosten; die Übersicht stellt summierte Soll- und Ist-Kosten gegenüber und weist Abweichungen aus (die Gemeinkostenzuschläge erscheinen nur in den Soll-Kosten).[^kosten-anzeige] Im letzten Schritt rechnet der Controller den Fertigungsauftrag ab (Istabrechnung im Kostenrechnungskreis NA00, Periode gleich laufender Monat): Die zunächst nur temporär erfassten Kosten werden einem Kostenobjekt zugewiesen und der Auftrag entlastet.[^abrechnung-praxis] Der Lauf erfolgt zunächst als Testlauf mit dem Bericht „Ist/Plan/Abweichung“, bevor er als Echtlauf gebucht wird.[^abrechnung-lauf]
 
 Damit ist der in Kap. 2.5 beschriebene controllingseitige Abschluss vollzogen: Die Ist-Kosten werden abgerechnet und über den Soll-Ist- bzw. Plan-Ist-Vergleich transparent gemacht, sodass Abweichungen erkennbar werden und der Kreis von der Planung über die Ausführung bis zur kostenrechnerischen Bewertung geschlossen ist.
 
@@ -123,9 +146,11 @@ Bezogen auf die Problemstellung aus Kapitel 1 löst der integrierte Ansatz das A
 
 ## 4 Fazit
 
+Das abschließende Kapitel verdichtet die Ergebnisse der Arbeit zur Beantwortung der Forschungsfrage und reflektiert das gewählte Vorgehen kritisch, bevor ein Ausblick auf weiterführende Fragestellungen gegeben wird.
+
 ### 4.1 Zusammenfassung der Ergebnisse
 
-Die Arbeit ist der Frage nachgegangen, wie SAP S/4HANA den durchgängigen Planungs- und Steuerungsprozess abbildet und inwieweit dessen einzelne Schritte das Abstimmungsproblem aus Nachfrage, Kapazität und Materialverfügbarkeit lösen. Der theoretische Teil hat die PPS als sukzessive Planungshierarchie auf gemeinsamer Stammdatenbasis hergeleitet – von der Absatz- und Produktionsgrobplanung über Programmplanung und Materialbedarfsplanung bis zu Ausführung und Auftragsabrechnung. Der Praxisteil hat gezeigt, dass die Modellfirma Global Bike genau diese Hierarchie durchläuft: von der prognosebasierten SOP über die materialgenaue Bedarfsplanung und die bewegungsartengesteuerte Fertigung bis zur kostenrechnerischen Abrechnung. Jede Prozessstufe des Systems ließ sich dabei einem theoretischen Konzept zuordnen – etwa die Nettobedarfsrechnung, der Planauftrag als Bindeglied zwischen Planung und Steuerung oder die Strategie „Planung mit Endmontage". Damit überführt der integrierte Ansatz eine Absatzprognose konsistent in Fertigungs- und Beschaffungsentscheidungen und beantwortet die Forschungsfrage im Kern positiv: Die Prozessschritte lösen das Abstimmungsproblem weitgehend – in Abhängigkeit von Datenqualität und Planungsannahmen.
+Die Arbeit ist der Frage nachgegangen, wie SAP S/4HANA den durchgängigen Planungs- und Steuerungsprozess abbildet und inwieweit dessen einzelne Schritte das Abstimmungsproblem aus Nachfrage, Kapazität und Materialverfügbarkeit lösen. Der theoretische Teil hat die PPS als sukzessive Planungshierarchie auf gemeinsamer Stammdatenbasis hergeleitet – von der Absatz- und Produktionsgrobplanung über Programmplanung und Materialbedarfsplanung bis zu Ausführung und Auftragsabrechnung. Der Praxisteil hat gezeigt, dass die Modellfirma Global Bike genau diese Hierarchie durchläuft: von der prognosebasierten SOP über die materialgenaue Bedarfsplanung und die bewegungsartengesteuerte Fertigung bis zur kostenrechnerischen Abrechnung. Jede Prozessstufe des Systems ließ sich dabei einem theoretischen Konzept zuordnen – etwa die Nettobedarfsrechnung, der Planauftrag als Bindeglied zwischen Planung und Steuerung oder die Strategie „Planung mit Endmontage“. Damit überführt der integrierte Ansatz eine Absatzprognose konsistent in Fertigungs- und Beschaffungsentscheidungen und beantwortet die Forschungsfrage im Kern positiv: Die Prozessschritte lösen das Abstimmungsproblem weitgehend – in Abhängigkeit von Datenqualität und Planungsannahmen.
 
 ### 4.2 Kritische Reflexion und Ausblick
 
@@ -135,155 +160,166 @@ Die Untersuchung stützt sich auf ein didaktisch vereinfachtes Curriculum-Szenar
 
 ## Literaturverzeichnis
 
-- Boldau, Michael / Wagner, Bret / Weidner, Stefan (2023): Global Bike. Fallstudie Produktionsplanung und -steuerung (PP), Version 4.2, Magdeburg: SAP UCC.
-- Kessler, Alexander / Vogt, Josua / Stephan, Max / Himburg, Marcel (2023): Global Bike. Fallstudie Variantenkonfiguration (VC), Version 4.2, Magdeburg: SAP UCC.
-- Kurbel, Karl (2021): ERP und SCM. Enterprise Resource Planning und Supply Chain Management in der Industrie, 9. Aufl., Berlin/Boston: De Gruyter Oldenbourg. ISBN 978-3-11-070118-0; DOI 10.1515/9783110701203.
-- SAP UCC Magdeburg (2023): Einführung in S/4HANA mit Global Bike. Foliensatz Produktionsplanung und -steuerung (PP), Version 4.2, Magdeburg.
+Boldau, Michael, Wagner, Bret, Weidner, Stefan (Fallstudie PP, 2023): Global Bike. Fallstudie Produktionsplanung und -steuerung (PP), Version 4.2, Magdeburg: SAP UCC, 2023
+
+Kessler, Alexander, Vogt, Josua, Stephan, Max, Himburg, Marcel (Fallstudie VC, 2023): Global Bike. Fallstudie Variantenkonfiguration (VC), Version 4.2, Magdeburg: SAP UCC, 2023
+
+Kurbel, Karl (ERP und SCM, 2021): ERP und SCM. Enterprise Resource Planning und Supply Chain Management in der Industrie, 9. Aufl., Berlin, Boston: De Gruyter Oldenbourg, 2021
+
+SAP UCC Magdeburg (Foliensatz PP, 2023): Einführung in S/4HANA mit Global Bike. Foliensatz Produktionsplanung und -steuerung (PP), Version 4.2, Magdeburg: SAP UCC, 2023
 
 ---
 
-## Kennzeichnung des KI-Einsatzes
+## KI-Hilfsmittelverzeichnis
 
-Zur Strukturierung und sprachlichen Ausformulierung von Textentwürfen wurde ein KI-gestütztes Sprachmodell als Hilfsmittel eingesetzt. Die inhaltliche Verantwortung, die Auswahl und Prüfung der Fachquellen sowie die fachliche Richtigkeit liegen vollständig bei der/dem Verfasser/in. Die KI-Unterstützung ersetzt keine Fachquelle.
+Claude, Version Opus 4.8 – Erstellung von Titel und Gliederungsstruktur der Arbeit (Zugriff am 26.06.2026)
+
+Claude, Version Fable 5 – Erstellung des Abkürzungsverzeichnisses sowie sprachliche und formale Überarbeitung des Textes (Zugriff am 02.07.2026)
+
+Die inhaltliche Verantwortung, die Auswahl und Prüfung der Fachquellen sowie die fachliche Richtigkeit liegen vollständig bei dem Verfasser. Die KI-Unterstützung ersetzt keine Fachquelle; alle inhaltlichen Aussagen sind durch die im Literaturverzeichnis aufgeführten Quellen belegt und im Text per Fußnote gekennzeichnet.
 
 ---
 
 ### Fußnoten
 
-[^pps-relevanz]: Vgl. Kurbel (2021), S. 22 ff.
+[^ki-struktur]: Gliederungsstruktur der Arbeit wurden KI-gestützt erstellt: Vgl. Claude, Version Opus 4.8, Zugriff am 26.06.2026.
 
-[^isoliert]: Vgl. Kurbel (2021), S. 22 ff.; ergänzend SAP UCC Magdeburg (2023), Folie 27.
+[^ki-abkverz]: Vgl. Claude, Version Fable 5, Zugriff am 02.07.2026.
 
-[^erp]: Vgl. Kurbel (2021), S. 212 ff.
+[^pps-relevanz]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 22 ff.
 
-[^strategie]: Vgl. SAP UCC Magdeburg (2023), Folie 32 f.; Boldau/Wagner/Weidner (2023), S. 1.
+[^isoliert]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 22 ff.; ergänzend SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 27.
 
-[^curriculum]: Vgl. Boldau/Wagner/Weidner (2023); SAP UCC Magdeburg (2023).
+[^erp]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 212 ff.
 
-[^def-pps]: Vgl. Kurbel (2021), S. 16 ff.
+[^strategie]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 32 f.; Boldau, M. et al., Fallstudie PP, 2023, S. 1.
 
-[^sap-typen]: Vgl. SAP UCC Magdeburg (2023), Folie 5.
+[^curriculum]: Vgl. Boldau, M. et al., Fallstudie PP, 2023; SAP UCC Magdeburg, Foliensatz PP, 2023.
 
-[^mrp2]: Vgl. Kurbel (2021), S. 101 ff.
+[^def-pps]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 16 ff.
 
-[^plan-steuer]: Vgl. Kurbel (2021), S. 16 ff.; ergänzend SAP UCC Magdeburg (2023), Folie 25 f.
+[^sap-typen]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 5.
 
-[^sukzessiv]: Vgl. Kurbel (2021), S. 20 f.
+[^mrp2]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 101 ff.
 
-[^sap-stufen]: Vgl. SAP UCC Magdeburg (2023), Folie 24 f.
+[^plan-steuer]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 16 ff.; ergänzend SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 25 f.
 
-[^ebenen]: Vgl. SAP UCC Magdeburg (2023), Folie 25 f.
+[^sukzessiv]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 20 f.
 
-[^prognose]: Vgl. SAP UCC Magdeburg (2023), Folie 27 f.
+[^sap-stufen]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 24 f.
 
-[^prognose-fehler]: Vgl. SAP UCC Magdeburg (2023), Folie 27.
+[^ebenen]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 25 f.
 
-[^programm]: Vgl. SAP UCC Magdeburg (2023), Folie 29 ff.
+[^prognose]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 27 f.
 
-[^stammdaten]: Vgl. Kurbel (2021), S. 43 ff.; ergänzend SAP UCC Magdeburg (2023), Folie 11.
+[^prognose-fehler]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 27.
 
-[^matstamm]: Vgl. Kurbel (2021), S. 44 ff.; SAP UCC Magdeburg (2023), Folie 12.
+[^programm]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 29 ff.
 
-[^stueckliste]: Vgl. SAP UCC Magdeburg (2023), Folie 13 ff.; Kurbel (2021), S. 45 ff.
+[^stammdaten]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 43 ff.; ergänzend SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 11.
 
-[^arbeitsplan]: Vgl. SAP UCC Magdeburg (2023), Folie 18 f.; Boldau/Wagner/Weidner (2023), S. 9.
+[^matstamm]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 44 ff.; SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 12.
 
-[^arbeitsplatz]: Vgl. SAP UCC Magdeburg (2023), Folie 7 u. 20 f.
+[^stueckliste]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 13 ff.; Kurbel, K., ERP und SCM, 2021, S. 45 ff.
 
-[^produktgruppe]: Vgl. SAP UCC Magdeburg (2023), Folie 22.
+[^arbeitsplan]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 18 f.; Boldau, M. et al., Fallstudie PP, 2023, S. 9.
 
-[^mrp-zweck]: Vgl. SAP UCC Magdeburg (2023), Folie 35 u. 37; ergänzend Kurbel (2021), S. 42 ff.
+[^arbeitsplatz]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 7 u. 20 f.
 
-[^netto]: Vgl. SAP UCC Magdeburg (2023), Folie 38.
+[^produktgruppe]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 22.
 
-[^losgroesse]: Vgl. SAP UCC Magdeburg (2023), Folie 39.
+[^mrp-zweck]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 35 u. 37; ergänzend Kurbel, K., ERP und SCM, 2021, S. 42 ff.
 
-[^beschaffungsart]: Vgl. SAP UCC Magdeburg (2023), Folie 40.
+[^netto]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 38.
 
-[^mrp-terminierung]: Vgl. SAP UCC Magdeburg (2023), Folie 41.
+[^losgroesse]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 39.
 
-[^stueckaufloesung]: Vgl. SAP UCC Magdeburg (2023), Folie 35 u. 37; Kurbel (2021), S. 88 ff.
+[^beschaffungsart]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 40.
 
-[^planauftrag]: Vgl. SAP UCC Magdeburg (2023), Folie 44 f.
+[^mrp-terminierung]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 41.
 
-[^auftragsarten]: Vgl. SAP UCC Magdeburg (2023), Folie 45.
+[^stueckaufloesung]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 35 u. 37; Kurbel, K., ERP und SCM, 2021, S. 88 ff.
 
-[^umwandlung]: Vgl. SAP UCC Magdeburg (2023), Folie 44 f.
+[^planauftrag]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 44 f.
 
-[^fertauftrag]: Vgl. SAP UCC Magdeburg (2023), Folie 47 f.
+[^auftragsarten]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 45.
 
-[^freigabe]: Vgl. SAP UCC Magdeburg (2023), Folie 49 f. u. 52.
+[^umwandlung]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 44 f.
 
-[^warenausgang]: Vgl. SAP UCC Magdeburg (2023), Folie 54; Boldau/Wagner/Weidner (2023), S. 34 f. (Bewegungsart 261).
+[^fertauftrag]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 47 f.
 
-[^rueckmeldung]: Vgl. SAP UCC Magdeburg (2023), Folie 55.
+[^freigabe]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 49 f. u. 52.
 
-[^wareneingang]: Vgl. SAP UCC Magdeburg (2023), Folie 56.
+[^warenausgang]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 54; Boldau, M. et al., Fallstudie PP, 2023, S. 34 f. (Bewegungsart 261).
 
-[^abrechnung]: Vgl. SAP UCC Magdeburg (2023), Folie 57 ff.
+[^rueckmeldung]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 55.
 
-[^strategien-arten]: Vgl. SAP UCC Magdeburg (2023), Folie 32.
+[^wareneingang]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 56.
 
-[^strategien-lager]: Vgl. SAP UCC Magdeburg (2023), Folie 33.
+[^abrechnung]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 57 ff.
 
-[^opp]: Vgl. Kurbel (2021), S. 35 ff. u. 173 ff.
+[^strategien-arten]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 32.
 
-[^gb-strategie40]: Vgl. SAP UCC Magdeburg (2023), Folie 33; Boldau/Wagner/Weidner (2023), S. 6.
+[^strategien-lager]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 33.
 
-[^gb-unternehmen]: Vgl. SAP UCC Magdeburg (2023), Folie 8; Boldau/Wagner/Weidner (2023), S. 2.
+[^opp]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 35 ff. u. 173 ff.
 
-[^gb-orga]: Vgl. SAP UCC Magdeburg (2023), Folie 7 ff.
+[^gb-strategie40]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 33; Boldau, M. et al., Fallstudie PP, 2023, S. 6.
 
-[^gb-produkt]: Vgl. Boldau/Wagner/Weidner (2023), S. 4; SAP UCC Magdeburg (2023), Folie 13 ff.
+[^gb-unternehmen]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 8; Boldau, M. et al., Fallstudie PP, 2023, S. 2.
 
-[^gb-produktgruppe]: Vgl. Boldau/Wagner/Weidner (2023), S. 12.
+[^gb-orga]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 7 ff.
 
-[^gb-rollen]: Vgl. Boldau/Wagner/Weidner (2023), S. 2.
+[^gb-produkt]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 4; SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 13 ff.
 
-[^matstamm-praxis]: Vgl. Boldau/Wagner/Weidner (2023), S. 6.
+[^gb-produktgruppe]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 12.
 
-[^arbeitsplan-praxis]: Vgl. Boldau/Wagner/Weidner (2023), S. 8 f.
+[^gb-rollen]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 2.
 
-[^komponenten-praxis]: Vgl. Boldau/Wagner/Weidner (2023), S. 9 f.
+[^matstamm-praxis]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 6.
 
-[^sop-prognose]: Vgl. Boldau/Wagner/Weidner (2023), S. 14 ff.
+[^arbeitsplan-praxis]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 8 f.
 
-[^sop-produktionsplan]: Vgl. Boldau/Wagner/Weidner (2023), S. 16 f.
+[^komponenten-praxis]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 9 f.
 
-[^uebergabe]: Vgl. Boldau/Wagner/Weidner (2023), S. 18.
+[^sop-prognose]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 14 ff.
 
-[^planprimaerbedarf]: Vgl. Boldau/Wagner/Weidner (2023), S. 19.
+[^sop-produktionsplan]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 16 f.
 
-[^programmplanung-anzeige]: Vgl. Boldau/Wagner/Weidner (2023), S. 20 f.
+[^uebergabe]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 18.
 
-[^mrp-lauf]: Vgl. Boldau/Wagner/Weidner (2023), S. 22.
+[^planprimaerbedarf]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 19.
 
-[^mrp-netto]: Vgl. Boldau/Wagner/Weidner (2023), S. 23.
+[^programmplanung-anzeige]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 20 f.
 
-[^bedarfsliste]: Vgl. Boldau/Wagner/Weidner (2023), S. 25 f.
+[^mrp-lauf]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 22.
 
-[^bedarfsverursacher]: Vgl. Boldau/Wagner/Weidner (2023), S. 27.
+[^mrp-netto]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 23.
 
-[^umwandlung-praxis]: Vgl. Boldau/Wagner/Weidner (2023), S. 28 f.
+[^bedarfsliste]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 25 f.
 
-[^wareneingang-lager]: Vgl. Boldau/Wagner/Weidner (2023), S. 31.
+[^bedarfsverursacher]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 27.
 
-[^warenausgang-261]: Vgl. Boldau/Wagner/Weidner (2023), S. 34 f.
+[^umwandlung-praxis]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 28 f.
 
-[^rueckmeldung-praxis]: Vgl. Boldau/Wagner/Weidner (2023), S. 40 ff.
+[^wareneingang-lager]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 31.
 
-[^wareneingang-fe]: Vgl. Boldau/Wagner/Weidner (2023), S. 44 f.
+[^warenausgang-261]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 34 f.
 
-[^kosten-anzeige]: Vgl. Boldau/Wagner/Weidner (2023), S. 46 f.
+[^rueckmeldung-praxis]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 40 ff.
 
-[^abrechnung-praxis]: Vgl. Boldau/Wagner/Weidner (2023), S. 48.
+[^wareneingang-fe]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 44 f.
 
-[^abrechnung-lauf]: Vgl. Boldau/Wagner/Weidner (2023), S. 49 ff.
+[^kosten-anzeige]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 46 f.
 
-[^wuerdigung-integration]: Vgl. Kurbel (2021), S. 212 ff.; SAP UCC Magdeburg (2023), Folie 56.
+[^abrechnung-praxis]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 48.
 
-[^wuerdigung-sukzessiv]: Vgl. Kurbel (2021), S. 33.
+[^abrechnung-lauf]: Vgl. Boldau, M. et al., Fallstudie PP, 2023, S. 49 ff.
 
-[^wuerdigung-prognose]: Vgl. SAP UCC Magdeburg (2023), Folie 27.
+[^wuerdigung-integration]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 212 ff.; SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 56.
 
-[^ausblick-vc]: Vgl. Kessler/Vogt/Stephan/Himburg (2023).
+[^wuerdigung-sukzessiv]: Vgl. Kurbel, K., ERP und SCM, 2021, S. 33.
+
+[^wuerdigung-prognose]: Vgl. SAP UCC Magdeburg, Foliensatz PP, 2023, Folie 27.
+
+[^ausblick-vc]: Vgl. Kessler, A. et al., Fallstudie VC, 2023.

@@ -263,7 +263,10 @@
 %-----------------------------------
 % Abkürzungsverzeichnis
 %-----------------------------------
-\usepackage[printonlyused]{acronym}
+% 'printonlyused' entfernt: Das Abkürzungsverzeichnis wird direkt aus den in
+% abkuerzungen/acronyms.tex definierten Einträgen gefüllt (alle dort gelisteten
+% Abkürzungen werden im Text auch verwendet).
+\usepackage{acronym}
 
 %-----------------------------------
 % Symbolverzeichnis
@@ -382,19 +385,26 @@
 %-----------------------------------
 % Abbildungsverzeichnis
 %-----------------------------------
-\listoffigures
-\newpage
+% Deaktiviert: Die Arbeit enthält keine Abbildungen, daher würde
+% \listoffigures nur eine leere Seite erzeugen.
+%\listoffigures
+%\newpage
 %-----------------------------------
 % Tabellenverzeichnis
 %-----------------------------------
-\listoftables
-\newpage
+% Deaktiviert: Die Arbeit enthält keine Tabellen, daher würde
+% \listoftables nur eine leere Seite erzeugen.
+%\listoftables
+%\newpage
 %-----------------------------------
 % Abkürzungsverzeichnis
 %-----------------------------------
 % Falls das Abkürzungsverzeichnis nicht im Inhaltsverzeichnis angezeigt werden soll
 % dann folgende Zeile auskommentieren.
-\addcontentsline{toc}{section}{\abbreHeadingName}
+% \phantomsection setzt einen Hyperref-Anker an dieser Stelle, damit der Link im
+% Inhaltsverzeichnis auf die Abkürzungsverzeichnis-Seite zeigt und nicht auf die
+% erste Seite (\section* erzeugt selbst keinen Anker).
+\phantomsection\addcontentsline{toc}{section}{\abbreHeadingName}
 \input{abkuerzungen/acronyms}
 \newpage
 
@@ -404,10 +414,12 @@
 % In Overleaf führt der Einsatz des Symbolverzeichnisses zu einem Fehler, der aber ignoriert werdne kann
 % Falls das Symbolverzeichnis nicht im Inhaltsverzeichnis angezeigt werden soll
 % dann folgende Zeile auskommentieren.
-\phantomsection\addcontentsline{toc}{section}{\symheadingname}
-\input{skripte/symbolDef}
-\listofsymbols
-\newpage
+% Symbolverzeichnis deaktiviert: Die Arbeit verwendet keine Formelsymbole,
+% daher würde \listofsymbols nur eine leere Seite erzeugen.
+%\phantomsection\addcontentsline{toc}{section}{\symheadingname}
+%\input{skripte/symbolDef}
+%\listofsymbols
+%\newpage
 
 %-----------------------------------
 % Glossar

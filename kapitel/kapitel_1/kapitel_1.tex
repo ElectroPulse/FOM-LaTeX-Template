@@ -1,57 +1,32 @@
 \newpage
-\section{Informationen vom Thesis-Day} \label{infos}
-Siehe auch Wissenschaftliches Arbeiten~\footcite[\vglf][S. 1]{Balzert.2008}. %ohne textcommands
-Damit sollten alle wichtigen Informationen abgedeckt sein ;-)~\footcite[\vglf][\pagef 1]{Balzert.2008} %mit textcommands
-Hier gibt es noch ein Beispiel für ein direktes Zitat\footcite[][\pagef 1]{Balzert.2008} %mit textcommands
+\section{Wissenschaftliche Grundlagen}
 
-\subsection{Pre-Anmeldephase}
-\subsubsection{Vorüberlegungen}
-Trichtermethode: Man beginnt mit der eigentlichen  Konklusion und überlegt dann, welche allgemeinen Teile dafür benötigt werden.
+Dieses Kapitel legt das theoretische Fundament der Arbeit. Ausgehend von der begrifflichen Einordnung der Produktionsplanung und -steuerung werden die Planungshierarchie des Sukzessivplanungskonzepts, die planungsrelevanten Stammdaten, die Mechanik der Materialbedarfsplanung, der Übergang von der Planung zur Ausführung sowie die Fertigungsstrategien hergeleitet. Diese Konzepte bilden den Bezugsrahmen für die Analyse des Praxisbeispiels in Kapitel 3.
 
-Welchen Mehrwert soll die Arbeit bieten \footnote{Diese Fu\ss note hat inhaltlich keinen Sinn. Es soll nur ein langer Text generiert werden, dass dieser Vermerk über zwei Zeilen reicht und bündig dargestellt wird.}? Auch darüber nachdenken, wie die Arbeit einen selbst weiter bringen kann. Studienverlauf prüfen. Welche Vorlesungen hat mich besonders interessiert? Wo liegen meine Stärken etc.
+\subsection{Begriffliche Einordnung der Produktionsplanung und -steuerung}
+Die Produktionsplanung und -steuerung (PPS) umfasst die Gesamtheit der Aufgaben, die erforderlich sind, um die betriebliche Leistungserstellung mengen-, termin- und kapazitätsgerecht zu disponieren, zu veranlassen und zu überwachen.\footcite[Vgl.][S. 16 ff.]{Kurbel.2021} In SAP S/4HANA bildet der Funktionsbereich Produktionsplanung (PP) diese Aufgaben ab; das System unterteilt die Produktion zunächst in Produktionsplanung und Produktionsdurchführung und unterscheidet je nach Fertigungstyp zwischen diskreter Fertigung, Serienfertigung, KANBAN und Prozessfertigung.\footcite[Vgl.][Folie 5]{SAPUCC.2023} Konzeptionell knüpft die PPS an das MRP-II-Konzept (Manufacturing Resource Planning) an, das die reine Materialbedarfsplanung um die Kapazitäts-, Termin- und Ressourcenplanung erweitert und die Teilpläne zu einem geschlossenen Planungs- und Steuerungskreislauf verbindet.\footcite[Vgl.][S. 101 ff.]{Kurbel.2021} Innerhalb dieses Rahmens ist die \textit{Planung} von der \textit{Steuerung} abzugrenzen: Die Planung legt fest, welches Erzeugnis in welcher Menge zu welchem Termin herzustellen ist, während die Steuerung die geplanten Aufträge freigibt, ihre Durchführung veranlasst und über Rückmeldungen kontrolliert.\footcites[Vgl.][S. 16 ff.]{Kurbel.2021}[ergänzend][Folie 25 f.]{SAPUCC.2023}
 
-\begin{enumerate}
-\item Themenfindung
-\item Literaturrecherche
-\item Gliederung/Motivationspapier erstellen
-\item Betreuerauswahl (siehe Liste im \ac{OC})
-\item Anmeldung (ab 141 Credits möglich)
-\end{enumerate}
+\subsection{Die Planungshierarchie im Sukzessivplanungskonzept}
+Klassisch folgt die PPS dem Sukzessivplanungskonzept, das den komplexen Gesamtplanungsprozess in aufeinander aufbauende, hierarchisch geordnete Stufen zerlegt: Jede Stufe übernimmt die Vorgaben der übergeordneten Ebene und detailliert sie weiter (Top-down-Verfahren von der aggregierten zur dispositiven Planung).\footcite[Vgl.][S. 20 f.]{Kurbel.2021} In SAP S/4HANA konkretisiert sich diese Hierarchie in der Stufenfolge Prognose $\rightarrow$ Absatz- und Produktionsgrobplanung (SOP) $\rightarrow$ Programmplanung $\rightarrow$ Leitteileplanung (MPS) $\rightarrow$ Materialbedarfsplanung (MRP) $\rightarrow$ Produktionsdurchführung $\rightarrow$ Auftragsabrechnung.\footcite[Vgl.][Folie 24 f.]{SAPUCC.2023} Diese Schritte lassen sich drei Planungsebenen zuordnen -- der strategischen (aggregierten) Planung, der Detailplanung und der Produktionssteuerung --, denen jeweils unterschiedliche Rollen im Unternehmen zugewiesen sind.\footcite[Vgl.][Folie 25 f.]{SAPUCC.2023}
 
-\subsubsection{Anregungen finden}
-\begin{itemize}
-\item \href{http://www.diplom.de}{www.diplom.de}
-\item \href{http://www.hausarbeiten.de}{www.hausarbeiten.de}
-\item Datenbanken aus Tools and Methods
-\item etc.
-\end{itemize}
+Den Ausgangspunkt bildet die Absatzprognose. Sie stützt sich auf historische Verbrauchsdaten und nutzt Prognosemodelle für konstante, trend- oder saisonbedingte Verläufe sowie kombinierte Trend-Saison-Modelle, wobei die Modellwahl automatisch oder manuell erfolgen kann.\footcite[Vgl.][Folie 27 f.]{SAPUCC.2023} Da Prognosen grundsätzlich fehlerbehaftet sind und sowohl Über- als auch Unterbestände unmittelbar zu Verlusten führen, ist ihre Güte für alle nachgelagerten Stufen erfolgskritisch.\footcite[Vgl.][Folie 27]{SAPUCC.2023} Auf der aggregierten Ebene plant die SOP Absatz, Produktion und Kapazität für Produktgruppen in Zeitfenstern; die Programmplanung bildet anschließend das Bindeglied zur Feinplanung, indem sie die aggregierten Vorgaben in konkrete Planprimärbedarfe -- das Produktionsprogramm -- überführt, das von MPS und MRP bis auf Komponentenebene aufgelöst wird.\footcite[Vgl.][Folie 29 ff.]{SAPUCC.2023}
 
-\newpage
-\subsection{Anfertigungsphase}
-Die Anmeldung ist mittlerweile jeden Mittwoch möglich.
-\begin{figure}[H]
-\caption{FOM-Vorgaben zur Thesis im Online-Campus}
-\includegraphics[width=0.9\textwidth]{campusDownload}
-\\
-\cite[Quelle: Vgl.][]{FOM}
-\end{figure}
+\subsection{Stammdaten als Fundament der Planung}
+Stammdaten bilden die wiederverwendbare, abteilungsübergreifende Datenbasis, ohne die keine Planungsstufe rechnen kann; in SAP S/4HANA sind dies für die Produktion vor allem Material, Stückliste, Arbeitsplan, Arbeitsplatz und Produktgruppe.\footcites[Vgl.][S. 43 ff.]{Kurbel.2021}[ergänzend][Folie 11]{SAPUCC.2023} Der \textbf{Materialstammsatz} -- in allgemeiner Terminologie der Teilestamm -- ist das zentrale Stammdatenobjekt jedes produktionswirtschaftlichen Systems. In ihm sind zahlreiche Attribute hinterlegt, deren Umfang und Differenzierung davon abhängen, welche betrieblichen Bereiche einbezogen werden; planungsrelevant sind vor allem die dispositions- und beschaffungsbezogenen Angaben, nach denen ein Material geplant und disponiert wird.\footcites[Vgl.][S. 44 ff.]{Kurbel.2021}[][Folie 12]{SAPUCC.2023} Die \textbf{Stückliste} listet sämtliche Komponenten auf, aus denen ein Produkt oder eine Baugruppe besteht. Sie kann einstufig oder mehrstufig sein und bildet damit die mehrstufige Erzeugnisstruktur ab; aus dem Primärbedarf des Fertigerzeugnisses leiten sich über die Stücklistenauflösung die Sekundärbedarfe der Komponenten ab.\footcites[Vgl.][Folie 13 ff.]{SAPUCC.2023}[][S. 45 ff.]{Kurbel.2021}
 
-Laut Herrn Keller sollte der Umfang der Thesis (für eine gute Note) eher im Bereich der 60 Seiten liegen. Wie immer ist das vermutlich mit dem Betreuer abzustimmen. Die Liste der Dozenten, die Abschlussarbeiten betreuen, findet sich auch im \ac{OC}.
+Der \textbf{Arbeitsplan} beschreibt die Folge der Vorgänge (was, wo, wann, wie), die zur Herstellung eines Materials erforderlich sind. Er dient als Vorlage für Fertigungsaufträge, als Grundlage der Terminierung und der Erzeugniskalkulation und enthält je Vorgang den ausführenden Arbeitsplatz, Vorgabewerte bzw. Zeitelemente sowie einen Steuerschlüssel.\footcites[Vgl.][Folie 18 f.]{SAPUCC.2023}[][S. 9]{Boldau.2023} Der \textbf{Arbeitsplatz} ist der Ort der Wertschöpfung -- Person, Maschine oder Fließband -- und definiert die verfügbaren Kapazitäten. Über seine Kalkulationsdaten (Kostenstelle und Leistungsarten) liefert er die Verrechnungssätze zur Bewertung der Vorgänge, während seine Terminierungsdaten (u. a. Liege- und Transportzeiten, Formelschlüssel) in die Terminierung einfließen.\footcite[Vgl.][Folie 7 u. 20 f.]{SAPUCC.2023} Die \textbf{Produktgruppe} schließlich fasst Materialien zu Produktfamilien zusammen und bildet die aggregierte Planungsebene der Absatz- und Produktionsgrobplanung.\footcite[Vgl.][Folie 22]{SAPUCC.2023}
 
-Zeit zur Erstellung der Thesis 2-4 Monate.
+\subsection{Kernmechanik der Materialbedarfsplanung (MRP)}
+Die Materialbedarfsplanung (MRP) bildet als plangesteuerte Disposition die detaillierte Planungsebene. Ausgehend von den Bedarfen aus Programmplanung bzw. Leitteileplanung sichert sie die Materialverfügbarkeit über alle Stücklistenebenen und überführt die Bedarfe in einen detaillierten Produktions- und Beschaffungsplan.\footcites[Vgl.][Folie 35 u. 37]{SAPUCC.2023}[ergänzend][S. 42 ff.]{Kurbel.2021} SAP gliedert den MRP-Lauf hierfür in fünf logische Schritte. Im ersten Schritt, der \textbf{Nettobedarfsrechnung}, stellt das System je Material den verfügbaren Lagerbestand und die fest eingeplanten Zugänge den Anforderungen -- etwa Planprimärbedarf, Reservierungen und Kundenaufträgen -- sowie dem Sicherheitsbestand gegenüber; eine Unterdeckung löst einen Beschaffungsvorschlag aus.\footcite[Vgl.][Folie 38]{SAPUCC.2023}
 
-Es müssen zwei gedruckte Arbeiten abgegeben werden. Flüchtige Quellen als PDF ausgeben lassen und auf CD abgeben. Thesis zusätzlich digital einreichen. Beim Binden der Thesis auf Qualität achten. Haptik und erster Eindruck sind in der Bewertung \enquote{auch} wichtig. Arbeiten können in jedem FOM Studienzentrum abgegeben werden.
+Die \textbf{Losgrößenberechnung} bestimmt anschließend die Beschaffungsmenge, wobei statische, periodische oder optimierende Losgrößenverfahren zum Einsatz kommen.\footcite[Vgl.][Folie 39]{SAPUCC.2023} Im Schritt \textbf{Beschaffungsart} entscheidet das System, ob ein Bedarf durch interne Beschaffung (Eigenfertigung) oder durch Fremdbeschaffung gedeckt wird; für die Eigenfertigung entsteht ein Planauftrag, für die Fremdbeschaffung eine Bestellanforderung.\footcite[Vgl.][Folie 40]{SAPUCC.2023} Die \textbf{Terminierung} ermittelt mehrstufig die Start- und Endtermine, sodass untergeordnete Baugruppen und Komponenten rechtzeitig zum übergeordneten Bedarfstermin bereitstehen.\footcite[Vgl.][Folie 41]{SAPUCC.2023} Die \textbf{Stücklistenauflösung} schließlich leitet aus dem Bedarf des übergeordneten Materials die Sekundärbedarfe der Komponenten ab, die ihrerseits in die Nettobedarfsrechnung der nächsttieferen Stücklistenebene eingehen.\footcites[Vgl.][Folie 35 u. 37]{SAPUCC.2023}[][S. 88 ff.]{Kurbel.2021} Ergebnis des MRP-Laufs ist damit für jeden eigengefertigten Bedarf ein \textbf{Planauftrag}. Dieser bildet das Bindeglied zwischen Planung und Steuerung: Er beschreibt einen künftigen Bedarf und wird später in einen Fertigungsauftrag (Eigenfertigung) oder eine Bestellung (Fremdbeschaffung) umgewandelt.\footcite[Vgl.][Folie 44 f.]{SAPUCC.2023}
 
-\subsection{Post-Abgabephase}
-Nach Abgabe ca. 2 Wochen bis zum Kolloquium.
+\subsection{Vom Plan zur Ausführung: Auftragsarten und Fertigungssteuerung}
+Die drei zentralen Auftragsarten grenzen sich nach ihrer Funktion ab: Der Planauftrag gehört zur Planung und beschreibt einen künftigen Bedarf, während Fertigungsauftrag und Bestellung der Steuerung zuzuordnen sind.\footcite[Vgl.][Folie 45]{SAPUCC.2023} Mit der Umwandlung des Planauftrags in einen Fertigungsauftrag (Eigenfertigung) bzw. eine Bestellung (Fremdbeschaffung) geht die Planung in die Ausführung über.\footcite[Vgl.][Folie 44 f.]{SAPUCC.2023} Der Fertigungsauftrag steuert die Produktionsvorgänge und die damit verbundenen Kosten; er legt das zu fertigende Material, die Menge, das Werk, die Rahmenzeiten, die eingesetzten Ressourcen (Arbeitsplätze und Zeiten) sowie die Kosten fest.\footcite[Vgl.][Folie 47 f.]{SAPUCC.2023} Nach Terminierung und Verfügbarkeitsprüfung wird der Auftrag freigegeben (Status FREI); damit ist er ausführungsbereit, und Warenbewegungen sowie Rückmeldungen werden fortan mit ihm abgeglichen.\footcite[Vgl.][Folie 49 f. u. 52]{SAPUCC.2023}
 
-Kolloquium:
-\begin{itemize}
-\item Dauer: 30 Minuten
-\item Präsentation (manche Prüfer wollen eine, andere nicht)
-\item Betreuer vorher fragen was er möchte
-\item Es gibt einen Frageteil, dieser bezieht sich auf die Arbeit, kann aber auch darüber hinaus gehen.
-\item Der Tag des Kolloquiums steht auf der Endbenotung
-\item Thesis und Kolloquium sind zwei getrennte Prüfungsbereiche. Für beide gibt es nur zwei Versuche.
-\item Am Tag des Kolloquiums erhält man die Bestätigung, ob bestanden oder nicht
-\end{itemize}
+Die Warenbewegungen werden über Bewegungsarten gesteuert und buchhalterisch erfasst. Beim \textbf{Warenausgang} werden die für den Auftrag reservierten Komponenten dem Bestand entnommen -- über die Bewegungsart 261 (Verbrauch für Auftrag) --, wobei die entnommenen Materialien dem Auftrag als Ist-Kosten zugeordnet werden.\footcites[Vgl.][Folie 54]{SAPUCC.2023}[][S. 34 f. (Bewegungsart 261)]{Boldau.2023} Die \textbf{Rückmeldung} dokumentiert den Fortschritt eines Auftrags (u. a. Mengen, Zeiten) und ist Voraussetzung einer realistischen Produktionssteuerung.\footcite[Vgl.][Folie 55]{SAPUCC.2023} Beim \textbf{Wareneingang} gelangt die gefertigte Menge in den Bestand; Bestandsmenge und -wert werden fortgeschrieben, der Auftrag wird aktualisiert und es entstehen ein Material-, ein Finanz- und ein Kostenrechnungsbeleg.\footcite[Vgl.][Folie 56]{SAPUCC.2023} Den Abschluss bildet die \textbf{Auftragsabrechnung}: Die tatsächlichen Kosten des Auftrags werden an einen oder mehrere Empfänger -- im Regelfall das Material bzw. den Bestand -- abgerechnet; das Abrechnungsprofil legt dabei Empfänger und Aufteilungsregeln fest. Differenzen zwischen Be- und Entlastung werden auf ein Preisdifferenzkonto gebucht, und Plan-, Soll- sowie Istkosten lassen sich einander gegenüberstellen.\footcite[Vgl.][Folie 57 ff.]{SAPUCC.2023}
+
+\subsection{Fertigungsstrategien (theoretischer Rahmen für die Bewertung)}
+Fertigungsstrategien legen fest, ob und wie weit die Produktion bereits vor dem Eingang konkreter Kundenaufträge vorgeplant wird. SAP unterscheidet hierbei vor allem die Lagerfertigung (Make-to-Stock), die Kundeneinzelfertigung (Make-to-Order) sowie konfigurierbare Materialien im Sinne einer Mass Customization.\footcite[Vgl.][Folie 32]{SAPUCC.2023} Bei der Lagerfertigung erfolgt die Planung über unabhängigen (Plan-)Bedarf und der Vertrieb aus dem Lagerbestand, während bei der Kundeneinzelfertigung die Produktion unmittelbar durch Kundenaufträge angestoßen wird.\footcite[Vgl.][Folie 33]{SAPUCC.2023} Theoretisch lässt sich diese Abgrenzung über den Entkopplungspunkt (Order Penetration Point) fassen: Er markiert die Stelle in der Wertschöpfungskette, bis zu der kundenanonym auf Basis von Prognosen vorgeplant und ab der kundenauftragsbezogen gefertigt wird.\footcite[Vgl.][S. 35 ff. u. 173 ff.]{Kurbel.2021}
+
+In SAP konkretisieren sich die Strategien in Strategiegruppen; für die Lagerfertigung steht etwa die Strategie 40 (Planung mit Endmontage) zur Verfügung.\footcite[Vgl.][Folie 33]{SAPUCC.2023} Der im Praxisteil betrachtete Global-Bike-Prozess nutzt eben diese Strategiegruppe 40 (Vorplanung mit Endmontage): Die Bedarfe werden über Planprimärbedarfe prognosebasiert vorgeplant, und auch die Endmontage wird vor dem Auftragseingang eingeplant; der Entkopplungspunkt liegt damit nahe am Fertigerzeugnis bzw. am Lager.\footcites[Vgl.][Folie 33]{SAPUCC.2023}[][S. 6]{Boldau.2023} Der untersuchte Prozess ist folglich der diskreten Make-to-Stock-Fertigung zuzuordnen -- eine Einordnung, die den Bezugsrahmen für die spätere kritische Würdigung des Verfahrens bildet.

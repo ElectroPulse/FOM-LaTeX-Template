@@ -1,223 +1,49 @@
 \newpage
-\section{Latex-Details} \label{latexDetails}
+\section{Praxisbeispiel: Der integrierte PP-Prozess bei Global Bike}
 
-\subsection{Verwendete Software, Editor und Zusatzpakete}
-\subsubsection{Windows 8+}
-\begin{itemize}
-\item MikTex: 2.9, 32-bit
-\item Biblatex: 3.5, Zusatz: Biber.exe
-\item Editor: TexStudio (kann ich empfehlen), Notepad++
-\end{itemize}
+Dieses Kapitel überträgt die theoretischen Konzepte aus Kapitel 2 auf den integrierten Fertigungsprozess der Modellfirma Global Bike. Nach der Vorstellung des Szenarios wird der Prozess schrittweise durchlaufen -- von der Stammdatenvorbereitung über Grob- und Bedarfsplanung bis zu Fertigungsausführung und controllingseitigem Abschluss -- und abschließend kritisch gewürdigt.
 
-\subsubsection{Mac OSX und iOS}
-\begin{itemize}
-\item MacTeX: \url{https://tug.org/mactex}
-\item Editor: TexPad \url{https://www.texpadapp.com}
-\end{itemize}
+\subsection{Vorstellung der Modellfirma und des Szenarios}
+Global Bike ist das Modellunternehmen des Curriculums -- ein internationaler Fahrradhersteller mit den Gesellschaften Global Bike Inc. (USA) und Global Bike Germany GmbH.\footcites[Vgl.][Folie 8]{SAPUCC.2023}[][S. 2]{Boldau.2023} SAP S/4HANA bildet es hierarchisch ab: Der Mandant (Global Bike) ist die oberste Ebene, darunter der Buchungskreis als kleinste rechnungslegungspflichtige Einheit (US00 bzw. DE00); die Produktion erfolgt in Werken -- hier Dallas (DL00) -- mit Lagerorten für Roh-, Halb- und Fertigware.\footcite[Vgl.][Folie 7 ff.]{SAPUCC.2023}
 
-\subsubsection{Online}
-Overleaf ist eine Online-Anwendung mit der Ihr direkt im Browser an eurer Thesis schreiben könnt. Bis 1GB Größe und maximal 60 Einzeldateien könnt ihr Overleaf kostenlos nutzen: \url{https://www.overleaf.com/}
+Betrachtungsobjekt ist das Fertigerzeugnis Deluxe Touring Bike (DXTR, in Schwarz, Silber und Rot), das in Dallas in diskreter Fertigung montiert wird. Seine mehrstufige Produktstruktur umfasst einen farbspezifischen Rahmen, Räder und weitere Komponenten, die über Montagevorgänge zum Endprodukt zusammengeführt werden.\footcites[Vgl.][S. 4]{Boldau.2023}[][Folie 13 ff.]{SAPUCC.2023} Für die Grobplanung sind die Fahrräder zu einer Produktgruppe zusammengefasst.\footcite[Vgl.][S. 12]{Boldau.2023} Getragen wird der Prozess arbeitsteilig von mehreren Rollen -- u. a. Fertigungsleiter (Jun Lee), Werksleiter (Hiro Abe) und Controller (Jamie Shamblin) -- aus den Bereichen Produktionsplanung (PP) und Materialwirtschaft (MM).\footcite[Vgl.][S. 2]{Boldau.2023}
 
+Das Szenario operationalisiert damit die Konzepte aus Kapitel 2: die Ebenen Mandant/Buchungskreis/Werk/Lagerort konkretisieren die Organisationsstruktur, die Produktgruppe die aggregierte SOP-Ebene (Kap. 2.2), der mehrstufige Aufbau des Fahrrads die Stückliste (Kap. 2.3) und seine Lagerfertigung die Strategie \enquote{Planung mit Endmontage} (Strategiegruppe 40, Kap. 2.6). Der folgende Abschnitt beginnt daher mit der Vorbereitung der Stammdaten.
 
-\subsection{Dokumentenklasse}
-Eigentlich hatte Prof. Finke empfohlen die Dokumentklassen \enquote{Book} oder \enquote{Report} für die Erstellung der Bachelor-Thesis zu verwenden, da diese über weitere Gliederungsebenen verfügen. Ich verwende dennoch eine leicht modifizierte Komaskript-Klasse \enquote{scrartcl}, mit der Erweiterung um eine Ebene. Siehe (skripte/weitereEbene.tex). Das Skript stammt irgendwo aus den Netz und übersteigt meine \LaTeX{}-Fähigkeiten. Dadurch kann ich über eine weitere Ebene in der Arbeit verfügen, ohne mich mit der Modifikation von Kapitel-Seiten rumschlagen~\footcite[Vgl. ][S. 5]{Tanenbaum.2003} zu müssen. Diese Quelle ist nur zur Demonstration und hat keinen inhaltlichen Bezug hierzu. Es werden übrigens nur die Quellen im Literaturverzeichnis angezeigt, die auch referenziert sind.
+\subsection{Vorbereitung der Stammdaten}
+Bevor geplant werden kann, sind die Stammdaten des Deluxe Touring Bike um planungsrelevante Angaben zu erweitern. In der Rolle Fertigungsleiter wird der werksspezifische Materialstammsatz (DL00) angepasst: In der Dispositionssicht wird die Strategiegruppe 40 (Vorplanung mit Endmontage) gesetzt und damit die Make-to-Stock-Strategie aus Kap. 2.6 verankert; in der Prognosesicht werden zwölf Initialisierungsperioden hinterlegt, in den Steuerungsdaten der Optimierungsgrad \enquote{F (Fein)} mit Parameteroptimierung gewählt und die Glättungsfaktoren gesetzt: Alpha 0,20 (Grundwert), Beta 0,10 (Trend), Gamma 0,30 (Saison) und Delta 0,30 (MAD, mittlere absolute Abweichung).\footcite[Vgl.][S. 6]{Boldau.2023} Diese Werte steuern die exponentielle Glättung der Absatzprognose (Kap. 2.2) und werden analog für die silberne und schwarze Variante gepflegt.
 
+Anschließend wird der Arbeitsplan angepasst. Er ist über Arbeitsplangruppe und Plangruppenzähler definiert, referenziert das Material und enthält je Vorgang Vorgabewerte und Zeitelemente für die Terminierung.\footcite[Vgl.][S. 8 f.]{Boldau.2023} Kern der Anpassung ist die Zuordnung (Allokation) der Stücklistenkomponenten zu den Vorgängen: Rahmen und Sitz zu Vorgang 0020, Lenker zu 0030, Aluminiumrad und Kettenschaltung zu 0040, Kette (0050), Bremsanlage (0060), Pedale (0070) sowie Garantiedokument und Verpackung zu 0100. Damit ist festgelegt, welche Komponente in welchem Fertigungsschritt verbaut wird -- ein abhängiger Prozess, bei dem jeder Vorgang auf dem vorhergehenden aufsetzt.\footcite[Vgl.][S. 9 f.]{Boldau.2023}
 
-\subsection{Grafiken}
-Das Paket \textbackslash usepackage\{float\} ermöglicht es die Grafiken und Tabellen an der Stelle im Text zu positionieren, wo diese im Quelltext stehen (Option H). Ansonsten würde \LaTeX{} diese dort unterbringen, wo es typographisch sinnvoll wäre - das wollen wir ja nicht ;-).
+Diese Vorbereitung bestätigt die in Kap. 2.3 hergeleitete Rolle der Stammdaten: Erst die Verknüpfung der Dispositions- und Prognosedaten des Materialstammsatzes mit Stückliste und Arbeitsplan schafft die konsistente Datenbasis, ohne die weder Bedarfs- noch Terminplanung rechnen kann.
 
-Die Breite der Grafiken am Besten relativ zum Text angeben.
+\subsection{Absatz- und Produktionsgrobplanung (SOP)}
+Im vierten Schritt legt der Fertigungsleiter für die Produktgruppe (PG-DXTR, DL00) einen zwölfmonatigen Absatz- und Produktionsgrobplan (SOP) an, der Plandaten konsolidiert und künftige Mengen prognostiziert. Grundlage ist der historische Verbrauch, in der Fallstudie vorgegeben als Vergangenheitswerte von Mai 2017 bis März 2021; über die automatische Modellauswahl erkennt das System Trend und Saison und wendet ein Saison-Trend-Modell an, womit die Prognosemodelle aus Kap. 2.2 praktisch umgesetzt werden.\footcite[Vgl.][S. 14 ff.]{Boldau.2023} Aus dem Absatzplan wird ein absatzsynchroner Produktionsplan abgeleitet und um eine Zielreichweite (fünf Perioden) ergänzt, sodass die Produktionsmengen den Absatz decken und den gewünschten Lagerbestand sichern.\footcite[Vgl.][S. 16 f.]{Boldau.2023}
 
-\subsection{Quellcode}
-Quellcode kann auf unterschiedliche Arten eingebaut werden.
-Zum einen kann es hier durch direktives Einbinden in der Kapitel-Datei geschehen.
-\begin{lstlisting}
-% Hier wird aufgezeigt, wie man eine Grafik einbindet, es wird also in der PDF angezeigt,
-% da es in einem Quellcode-Listing steht.
-% Auch wenn es hier faelschlicherweise als LaTeX-Befehl angezeigt wird.
-\includegraphics[width=0.9\textwidth]{sup}
-\end{lstlisting}
+Da der SOP langfristig und aggregiert plant, enthält er noch keine diskreten Materialbedarfe; diese entstehen erst mit der Übergabe an die Programmplanung, die die Produktgruppenplanung auf die einzelnen Materialien herunterbricht (Übergabestrategie \enquote{Produktionsplan Material(ien) als Anteil PG}).\footcite[Vgl.][S. 18]{Boldau.2023} Dabei entstehen Planprimärbedarfe für die drei Fahrräder, aufgeteilt nach hinterlegtem Anteil -- DXTR1 40\,\%, DXTR2 30\,\%, DXTR3 30\,\%.\footcite[Vgl.][S. 19]{Boldau.2023} Damit ist der Übergang von der Grobplanung (Kap. 2.2) zur materialgenauen Feinplanung vollzogen; der Planprimärbedarf ist Ausgangspunkt der Bedarfsplanung.
 
-Bei längeren Quellcode-Listings empfiehlt es sich jedoch auf eine externe Datei im Ordner Quellcode zu verlinken und diese einzubauen:
-\lstinputlisting[language=HTML]{./Quellcode/Beispiel.html}
+\subsection{Programmplanung und Bedarfsplanung (MPS/MRP)}
+Vor dem Planungslauf prüft der Werksleiter in der Programmplanung, ob für die drei Fahrräder Planprimärbedarfe (geplante unabhängige Bedarfe) vorliegen.\footcite[Vgl.][S. 20 f.]{Boldau.2023} Anschließend startet der Fertigungsleiter den Lauf aus Leitteileplanung (MPS) und Materialbedarfsplanung (MRP): Die MPS erzeugt Planaufträge nach den Vorgaben aus SOP und Programmplanung, parallel entstehen über die Stücklistenauflösung Planaufträge für die Sekundärbedarfe. Gesteuert wird der Lauf über Parameter, maßgeblich den Verarbeitungsschlüssel NETCH (Net-Change im gesamten Horizont), der nur geänderte Materialien neu plant, ergänzt um Vorgaben zu Bestellanforderung, Dispositionsliste, Planungsmodus und Eckterminierung.\footcite[Vgl.][S. 22]{Boldau.2023}
 
-Statt dem Package lstlisting, welches direkt auf Tex basiert, kann auch das Package minted verwendet werden.
-Dieses Package basiert auf python-pygments und unterstützt weit mehr Sprachkonstrukte als lstlisting.
-Um das Paket zu verwenden muss es eingebunden werden und zusätzlich python-pygments installiert sein.
-(Dies ist mit im Dockerfile vorhanden. Für die anderen Compile-Methoden, wie das native verwenden von Tex Live findet sich hier die Installationsanleitung für das minted Paket: https://ctan.org/pkg/minted?lang=de)
+Inhaltlich führt das System die in Kap. 2.4 beschriebene Nettobedarfsrechnung durch: Bestand und feste Zugänge werden dem Sicherheitsbestand und den Bedarfen gegenübergestellt; ergibt sich eine Unterdeckung (dispositiv verfügbare Menge kleiner als null), legt die MRP Beschaffungsvorschläge -- Planaufträge bzw. Bestellanforderungen -- in der durch das Losgrößenverfahren bestimmten Menge an.\footcite[Vgl.][S. 23]{Boldau.2023}
 
-Damit das kompilieren ohne Python trotzdem möglich ist, ist die Funktion standardmäßig ausgebaut. Deshalb muss zusätzlich in der Datei \begin{verbatim}thesis_main.tex \usepackage{minted} \end{verbatim} wieder einkommentiert werden. 
+Das Ergebnis zeigt die dynamische Bedarfs-/Bestandsliste: Für das rote Fahrrad weist sie zunächst keinen Bestand und keine frei verfügbare Menge aus; die Einträge lassen sich zu Periodensummen aus Planprimärbedarfen, geplanten Zugängen und ATP-Mengen (Available-to-Promise, frei verfügbare Mengen) verdichten.\footcite[Vgl.][S. 25 f.]{Boldau.2023} Über den Bedarfsverursacher wird sichtbar, dass der erste Planauftrag den Sicherheitsbestand und den ersten Planprimärbedarf deckt. Damit ist die Kette von der Grobplanung bis zum konkreten Planauftrag (Kap. 2.4) geschlossen.\footcite[Vgl.][S. 27]{Boldau.2023}
 
-Minted lässt sich dann ganz ähnlich zu lstlisting verwenden:
-\begin{lstlisting}
-	\begin{minted}{c}
-		int main() {
-			printf("hello, world");
-			return 0;
-		}
-	\end{minted}
-\end{lstlisting}	
+\subsection{Fertigungsausführung}
+Zur Ausführung wird der Planauftrag aus der Bedarfs-/Bestandsliste in einen Fertigungsauftrag umgewandelt. Dabei terminiert das System, prüft die Verfügbarkeit, reserviert die Komponenten laut Stückliste, gibt den Auftrag frei und berechnet die Plankosten.\footcite[Vgl.][S. 28 f.]{Boldau.2023} Damit die Fertigung starten kann, werden die zuvor leeren Komponentenbestände über einen Wareneingang ins Lager aufgefüllt -- in der Fallstudie vereinfacht ohne den vorgelagerten Beschaffungsprozess.\footcite[Vgl.][S. 31]{Boldau.2023}
 
-Da der Pfad zu den Abbildungen im Hauptdokument definiert wurde, muss hier nur noch der Name des Bildes ohne Dateiendung stehen (sup).
+Anschließend bucht der Lagerarbeiter den Warenausgang der Komponenten mit Bezug auf den Fertigungsauftrag über die Bewegungsart 261 (Verbrauch für Auftrag): Die reservierten Materialien werden aus den Lagerorten entnommen -- das Aluminiumrad aus dem Halbfabrikatelager (SF00), die übrigen aus dem Rohstofflager (RM00) --, dem Auftrag als Ist-Kosten zugeordnet und über einen Material-, Buchhaltungs- und Kostenrechnungsbeleg fortgeschrieben.\footcite[Vgl.][S. 34 f.]{Boldau.2023} Nach der Montage meldet der Fertigungsarbeiter die Fertigstellung zurück (Endrückmeldung mit Reservierungsausbuchung und Gutmenge); das System berechnet die Fertigungskosten, und der Auftragsstatus wechselt von \enquote{freigegeben} zu \enquote{rückgemeldet}.\footcite[Vgl.][S. 40 ff.]{Boldau.2023}
 
-\begin{figure}[H]
-\caption{Titel der Abbildung hier}
-\includegraphics[width=0.9\textwidth]{sup}
-\\
-Quelle: Eigene Darstellung
-\end{figure}
+Den Abschluss bildet der Wareneingang des fertigen Fahrrads in das Fertigerzeugnislager (FG00), mit dem der Wert des hergestellten Materials in den Auftrag fortgeschrieben wird.\footcite[Vgl.][S. 44 f.]{Boldau.2023} Der Ablauf entspricht damit exakt der in Kap. 2.5 hergeleiteten Logik aus Auftragsumwandlung, bewegungsartengesteuerten Warenbewegungen, Rückmeldung und Belegerzeugung.
 
-\subsection{Tabellen}
-\begin{table}[H]
-\caption{Beispieltabelle 1}
-\label{tbl:beispieltabelle2}
-\begin{tabularx}{\textwidth}[ht]{|l|X|l|}
-  \hline
-  \textbf{Abkürzung} & \textbf{Beschreibung} & \textbf{Berechnung}\\
-  \hline\hline
-    MEK & Materialeinzelkosten & \\
-  	MGK & Materialgemeinkosten & $+ \uparrow$~*\\
-    FEK & Fertigungseinzelkosten & \\
-  	FGK & Fertigungsgemeinkosten & $+ \uparrow$~*\\
-	SEKF & Sondereinzelkosten der Fertigung & \\
-	\hline\hline
-	\multicolumn{3}{|l|}{\textbf{= Herstellungskosten}} \\
-	\hline\hline
-  	VwGK & Verwaltungsgemeinkosten & $+ \uparrow$~*\\
-  	VtGK & Vertriebsgemeinkosten & $+ \uparrow$~*\\
-  	SEKVt & Sondereinzelkosten des Vertriebes & \\
-	\hline\hline
-	\multicolumn{3}{|l|}{\textbf{= Selbstkosten}} \\
-	\hline\hline
-	\multicolumn{3}{|l|}{+ Gewinnaufschlag} \\
-	\multicolumn{3}{|l|}{+ Rabatte} \\
-	\hline\hline
-	\multicolumn{3}{|l|}{\textbf{= Nettoverkaufspreis (NVP)}} \\
-	\hline
-	\multicolumn{3}{|l|}{+ Umsatzsteuer} \\
-	\hline\hline
-	\multicolumn{3}{|l|}{\textbf{= Bruttoverkaufspreis (BVP)}} \\
-	\hline
-\end{tabularx} \\
-\cite[Quelle: In Anlehnung an][S. 4]{Beckert.2012}
-\end{table}
+\subsection{Controllingseitiger Abschluss}
+Nach der Ausführung prüft der Controller in der Fertigungskostenanalyse die dem Auftrag zugeordneten Kosten; die Übersicht stellt summierte Soll- und Ist-Kosten gegenüber und weist Abweichungen aus (die Gemeinkostenzuschläge erscheinen nur in den Soll-Kosten).\footcite[Vgl.][S. 46 f.]{Boldau.2023} Im letzten Schritt rechnet der Controller den Fertigungsauftrag ab (Istabrechnung im Kostenrechnungskreis NA00, Periode gleich laufender Monat): Die zunächst nur temporär erfassten Kosten werden einem Kostenobjekt zugewiesen und der Auftrag entlastet.\footcite[Vgl.][S. 48]{Boldau.2023} Der Lauf erfolgt zunächst als Testlauf mit dem Bericht \enquote{Ist/Plan/Abweichung}, bevor er als Echtlauf gebucht wird.\footcite[Vgl.][S. 49 ff.]{Boldau.2023}
 
-%\clearpage % hiermit werden alle Bilder Tabellen ausgeworfen
+Damit ist der in Kap. 2.5 beschriebene controllingseitige Abschluss vollzogen: Die Ist-Kosten werden abgerechnet und über den Soll-Ist- bzw. Plan-Ist-Vergleich transparent gemacht, sodass Abweichungen erkennbar werden und der Kreis von der Planung über die Ausführung bis zur kostenrechnerischen Bewertung geschlossen ist.
 
-\subsection{Biblatex}
-\subsubsection{Erklärung}
-Von den vielen verfügbaren Literatur-Paketen habe ich mich für Biblatex entschieden. Die Anforderungen der FOM sollten hiermit erfüllt sein. Ich habe bisher nur Einträge \enquote{@book} getestet. Wie immer steckt der Teufel hier im Detail und es wird sich später herausstellen, ob Biblatex eine gute Wahl war. Die Anpassungen hierfür liegen unter skripte/modsBiblatex. Ich verwende das Backend Biber, welches bib-Dateien in UTF-8 verarbeiten kann.
+\subsection{Kritische Würdigung des Prozesses}
+Der Prozess weist deutliche Stärken auf. Zentral ist die durchgängige Integration: Planungs-, Ausführungs- und Abrechnungsdaten liegen auf einer gemeinsamen Datenbasis, sodass jede Warenbewegung automatisch einen Material-, Finanz- und Kostenrechnungsbeleg erzeugt und die Datenkonsistenz sichert.\footcites[Vgl.][S. 212 ff.]{Kurbel.2021}[][Folie 56]{SAPUCC.2023} Die Bedarfsableitung ist zudem weitgehend automatisiert -- aus dem Planprimärbedarf entstehen über Stücklistenauflösung und Nettobedarfsrechnung ohne manuelle Zwischenschritte Planaufträge (Kap. 3.4) --, und der Ablauf bleibt nachvollziehbar, da sich jeder Bedarf bis zum Verursacher zurückverfolgen lässt.
 
-In der für den Leitfaden 2018 aktualisierten Version sind außerdem Beispiele für \enquote{online},\footcite[Vgl.][]{website:angular:aboutAngular} also Webseiten, und \enquote{article},\footcite[Vgl.][S. 140]{Decker2009} also wissenschaftliche Artikel, enthalten.
+Diesen Stärken stehen Grenzen gegenüber. Erstens beruht die Planung auf umfangreichen, korrekt zu pflegenden Stammdaten und Parametern -- Strategiegruppe, Glättungsfaktoren, MRP-Steuerungsparameter (Kap. 3.2 und 3.4) --, was hohen Pflegeaufwand und Parametrisierungskomplexität bedeutet. Zweitens folgt der Ablauf einer Sukzessivplanung, deren Teilpläne auf Annahmen -- etwa über den künftigen Primärbedarf -- beruhen, die durch ungeplante Ereignisse verletzt werden können.\footcite[Vgl.][S. 33]{Kurbel.2021} Drittens ist die Prognose modellabhängig und grundsätzlich fehlerbehaftet, sodass Über- oder Unterdeckungen möglich bleiben.\footcite[Vgl.][Folie 27]{SAPUCC.2023}
 
-Laut Leitfaden sollen in einer Fußnote maximal 2 Autoren genannt werden. Bei Quellen mit drei oder 
-mehr Verfassern wird nur der erste Autor aufgeführt, gefolgt von
-\enquote{et. al.} bzw. \enquote{u.a.}. Im Literaturverzeichnis hingegen müssen alle Autoren angegeben werden.
-Beim Zitieren dieser Werke werden in der Fußnote die Autoren korrekt genannt, wie in 
-dieser Fußnote\footcite[Vgl.][S. 1]{Balzert0.2008},
-dieser Fußnote\footcite[Vgl.][S. 1]{Balzert1.2008} und
-dieser Fußnote\footcite[Vgl.][S. 1]{Balzert2.2008} zu sehen ist.
-In der Datei \texttt{literatur/literatur.bib} können daher alle Autoren ohne Bedenken erfasst werden.
-BibTeX findet die richtige Zitierweise automatisch.
-Die maximale Anzahl der angezeigten Autoren in Zitaten wird übrigens durch die Option \enquote{maxcitenames=3} des
-\textit{biblatex}-Packages festgelegt.
-
-\subsubsection{Beispielfußnoten}
-Diese Fussnote soll zeigen, wie mit einem \enquote{von} vor dem Namen des Autors
-umgegangen wird\footcite[Vgl.][S. 1]{Lucke2018}. Man muss für die korrekte
-Sortierung eines solchens Namens im Literaturverzeichnis einen \enquote{sortkey}
-setzen.
-
-Diese Fussnote soll zeigen, wie mit einer Online-Quelle ohne Jahresangabe
-umgegangen wird\footcite[Vgl.][]{Belastingdienst}.
-
-Diese Fußnote\footcite[Vgl.][S.1]{Beckert.2012} ist nur dazu da zu zeigen, wie mit mehreren Quellen des selben Autors aus dem selben Jahr umgegangen wird, wenn das Stichwort gleich bleibt \footcite[Vgl.][S.2]{Beckert.2012.1} oder sich ändert\footcite[Vgl.][S.3]{Beckert.2012.2}. Laut Leitfaden sollte bei gleichem Autor, Jahr und Stichwort ein Buchstabe an die Jahreszahl gehangen werden. Zum Beispiel 2012a. 
-
-Die folgenden Fußnoten dienen dazu zu zeigen, dass die Nummern von zwei direkt aufeinanderfolgende Fußnoten mit Komma getrennt werden.\footcite[Vgl.][S.2]{Beckert.2012.1}\footcite[Vgl.][S. 1]{Lucke2018}
-\subsection{Abkürzungen}
-Abkürzungen werden mithilfe des Pakets Acronym eingebunden. Alle Abkürzungen sollten in der Datei acronyms.tex mithilfe des \begin{verbatim}
-	\acro
-\end{verbatim} Befehls festgelegt werden. Im Text werden diese dann mit \begin{verbatim}
-	\ac{Abkürzung}
-\end{verbatim} benutzt. Bei der ersten Verwendung einer Abkürzung wird der Begriff in beiden Formen dargestellt. So wie hier: \ac{WYSIWYG}. Nur wenn eine Abkürzung tatsächlich verwendet wird erscheint sie auch im Abkürzungsverzeichnis.
-
-Sollte es im Abkürzungsverzeichnis zu Anzeigefehlern kommen kann dies daher rühren, dass eine Abkürzung verwendet wird, die länger ist als \ac{WYSIWYG}. In diesem Fall müsst ihr in der Datei acronyms.tex den Parameter [WYSIWYG] durch eure längere Abkürzung ersetzen.
-
-\subsection{Formeln}
-Um eine Formel nach links aus zurichten muss sie zwischen \& und \& eingesetzt werden:
-
-\textbf{Formel 1: Erste Formel}
-\begin{flalign}
-   & L_P{=} 10lg \cdot \frac{P}{1 mW} &
-\end{flalign}
-\cite[Quelle: In Anlehnung an][S. 4]{Beckert.2012}
-
-
-Etwas mehr Text.
-
-Ansonsten wird sie mittig ausgerichtet test.
-% Mehr infos: http://www.ctex.org/documents/packages/math/amsldoc.pdf
-
-\textbf{Formel 2: Zweite Formel}
-\begin{flalign}
-   L_P{=} 10lg \cdot \frac{P}{1 mW}
-\end{flalign}
-\cite[Quelle: In Anlehnung an][S. 4]{Beckert.2012}
-
-\subsection{Symbole}
-% die folgenden Symbole haben nicht mit der Formel oben drüber zu tun
-Das hier ist ein definiertes Symbol: \symnz und das hier auch \AB . Symbole werden in der Datei Skripte symboldef.tex zentral definiert.
-
-\subsection{Glossar}
-Begriffserklärungen bzw. das \gls{glossar} wird mithilfe des Pakets \gls{glossaries} eingebunden. Alle Begriffe die erklärt werden sollen, sollten in der Datei glossar.tex mithilfe des \begin{verbatim}
-	\newglossaryentry
-\end{verbatim} Befehls festgelegt werden. Im Text werden diese dann mit \begin{verbatim}
-	\gls{Begriff}
-\end{verbatim} benutzt.
-
-
-\subsection{Listen und Aufzählungen}
-\subsubsection{Listen}
-\begin{itemize}
-\item ein wichtiger Punkt
-\item noch ein wichtiger Punkt
-\item und so weiter
-\end{itemize}
-\subsubsection{Aufzählungen}
-\begin{enumerate}
-\item Reihenfolge ist hier wichtig
-\item Dieser Punkt kommt nach dem ersten
-\item Da sollte jetzt eine 3 vorne stehen
-\end{enumerate}
-
-\paragraph{Tiefste Ebene 1}
-Dies ist die tiefste Gliederungsebene. Sollten doch mehr Ebenen benötigt werden, muss eine andere Dokumentenklasse verwendet werden.
-
-\paragraph{Tiefste Ebene 2}
-Der zweite Punkt in dieser Ebene ist zur Erinnerung daran, dass es nie nie niemals nur einen Unterpunkt geben darf.
-
-\subsection{Skript zum Kompilieren}
-Latex will ja bekanntlich in einer bestimmten Reihenfolge aufgerufen werden:
-\begin{lstlisting}
-lualatex thesis_main.tex
-biber thesis_main
-lualatex thesis_main.tex
-lualatex thesis_main.tex
-thesis_main.pdf
-\end{lstlisting}
-
-Dies ist der Inhalt der Batchdatei \enquote{compile.bat}.
-
-\subsection{PlantUML}
-
-\begin{lstlisting}
-\begin{plantuml}
-@startuml
-Class01 <|-- Class02
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 -- Class10
-@enduml
-\end{plantuml}
-\end{lstlisting}
+Bezogen auf die Problemstellung aus Kapitel 1 löst der integrierte Ansatz das Abstimmungsproblem aus Nachfrage, Kapazität und Materialverfügbarkeit weitgehend: Er überführt eine Absatzprognose konsistent in konkrete Fertigungs- und Beschaffungsvorschläge und reduziert Intransparenz und isolierte Einzelplanung. Die Güte dieser Lösung hängt jedoch maßgeblich von Datenpflege und Planungsannahmen ab; der Prozess verlagert das Abstimmungsproblem damit von der manuellen Koordination hin zu einer daten- und parametergetriebenen Steuerung.
