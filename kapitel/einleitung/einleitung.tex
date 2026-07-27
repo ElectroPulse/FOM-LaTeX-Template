@@ -1,11 +1,12 @@
 \section{Einleitung}\label{sec:einleitung}
 
-% Diese Abkürzungen treten im Fließtext ausschließlich als Bestandteil deutscher
-% Komposita bzw. in flektierter Form auf und lassen sich daher nicht über \ac{}
-% einführen. \acused{} meldet sie dennoch dem Abkürzungsverzeichnis.
-\acused{KI}\acused{DORA}\acused{HTTP}\glsadd{devops}%
+\glsadd{devops}%
 
-Große Sprachmodelle sind in der Softwareentwicklung angekommen: 81\,\% der Befragten des DORA-Reports 2024 berichten eine Prioritätenverschiebung zugunsten von KI.\footcite[\vglf][\pagef 18]{DORA.2024} Eine Mehrfallstudie in drei deutschen Organisationen zeigt den regulären Einsatz in agilen Teams bei häufig fehlenden Regelungen.\footcite[\vglf][\pagef 297 f.]{Neumann.2026} Die Modelle treffen dort auf ein Vorgehensmodell aus kurzen Lieferzyklen, technischer Exzellenz und regelmäßiger Reflexion.\footcite[\vglf][o.\,S.]{Beck.2001}
+% KI, DORA und HTTP treten nur als Bestandteil deutscher Komposita bzw. in
+% flektierter Form auf. \ac{} würde dort eine falsch deklinierte Langform
+% einsetzen, \acused{} wiederum meldet sie nicht an 'printonlyused'. \acs{}
+% setzt genau die Kurzform und trägt sie ins Abkürzungsverzeichnis ein.
+Große Sprachmodelle sind in der Softwareentwicklung angekommen: 81\,\% der Befragten des \acs{DORA}-Reports 2024 berichten eine Prioritätenverschiebung zugunsten von \acs{KI}.\footcite[\vglf][\pagef 18]{DORA.2024} Eine Mehrfallstudie in drei deutschen Organisationen zeigt den regulären Einsatz in agilen Teams bei häufig fehlenden Regelungen.\footcite[\vglf][\pagef 297 f.]{Neumann.2026} Die Modelle treffen dort auf ein Vorgehensmodell aus kurzen Lieferzyklen, technischer Exzellenz und regelmäßiger Reflexion.\footcite[\vglf][o.\,S.]{Beck.2001}
 
 Die Befundlage ist widersprüchlich. Ein Laborexperiment weist eine um 55,8\,\% kürzere Bearbeitungszeit aus, ein randomisierter Versuch mit erfahrenen Entwicklern dagegen eine um 19\,\% längere.\footcites(\vglf)()[][\pagef 2]{Peng.2023}[][\pagef 2]{Becker.2025} Der DORA-Report verbindet zudem eine um 25\,\% höhere KI-Adoption mit besserer Dokumentationsqualität, aber geringerer Auslieferungsstabilität.\footcite[\vglf][\pagef 37, \pagef 39]{DORA.2024} Ob \glspl{codegenerator} agile Prozesse stärken oder aushöhlen, ist damit offen.
 

@@ -123,16 +123,29 @@ Abkürzungsverzeichnis if the text actually touches it. The `[DORA]` argument to
 the `acronym` environment must be the **longest** abbreviation in the list, it
 sets the column width.
 
+**`\acused{}` does not satisfy `printonlyused`.** It only tells `\ac` to use the
+short form from now on; it does not register the acronym for the list. An
+acronym reaches the Verzeichnis only via a command that actually typesets it —
+`\ac`, `\acs`, `\acl`, `\acf` and their plural forms. Verified the hard way: a
+build in which KI, DORA and HTTP were marked with `\acused{}` printed only LLM.
+
 German compounds break `\ac{}`: `\ac{KI}-Adoption` expands to
 "Künstliche Intelligenz (KI)-Adoption", and `zugunsten von \ac{KI}` produces a
-wrong case. For abbreviations that only ever occur inside compounds or in
-declined position (KI, DORA, HTTP) the paper registers them with `\acused{...}`
-at the top of `einleitung.tex` and writes plain text; the Verzeichnis supplies
-the expansion. Introduce inline only where it reads naturally, e.g.
-`(\aclp{LLM}, \acs{LLM})\acused{LLM}`.
+wrong case. Use **`\acs{}`** there instead — it typesets exactly the short form,
+so the rendered text is identical to writing the letters by hand, and it
+registers correctly: `des \acs{DORA}-Reports`, `eines \acs{HTTP}-Servers`,
+`zugunsten von \acs{KI}`. Introduce the long form inline only where it reads
+naturally, e.g. `(\aclp{LLM}, \acs{LLM})`.
 
 Never put `\ac{}` in a `\section`/`\subsection` title — it would expand inside
 the TOC, which is typeset before the body.
+
+Check that every defined acronym is reachable:
+
+```bash
+grep -rnoP '\\ac(s|l|f|p|lp|sp|fp)?\{[A-Z]+\}' kapitel/*/*.tex   # registered uses
+grep -oP '\\acro\{\K[A-Z]+' abkuerzungen/acronyms.tex            # defined
+```
 
 ## Glossary
 
@@ -146,6 +159,33 @@ the text are printed. Reference them with:
 - `\glsadd{key}` — index only, no output
 
 Give every entry an explicit `plural=` when the German plural is not `name + s`.
+
+Only the **first** occurrence of a term per document is marked; later mentions
+stay plain text. Keep it that way unless asked otherwise.
+
+`nonumberlist` is set on the package, which suppresses the location list (the
+page numbers `glossaries` otherwise prints behind every entry). Without it the
+Glossar reads like a Stichwortverzeichnis, and `\glsadd{devops}` in
+`einleitung.tex` would point at a page where the word "DevOps" is not visible.
+
+**The FOM Leitfaden does not provide for a Glossar at all** (checked against
+`todo/Leitfaden…pdf`, Stand Januar 2024 — zero occurrences of "Glossar").
+Section 1.1 *Elemente der Arbeit* lists the permitted parts exhaustively and
+omits it; 2.7 *Sonstige Verzeichnisse* covers only Rechtsprechungs- and
+Quellenverzeichnis. Instead, 1.5.2 requires central terms to be **defined in the
+running text**, which Kapitel 2 already does. The Glossar is therefore a
+tolerated extra, not a requirement — it was kept by explicit decision. If a
+Betreuer objects, removing it means: empty `abkuerzungen/glossar.tex`, drop the
+`glossaries` block from `thesis_main.tex`, and strip all `\gls*` macros from
+`kapitel/`.
+
+## Verzeichnisse and the TOC
+
+Every Verzeichnis that is built from `\section*` (Abkürzungs- und
+Symbolverzeichnis) needs **`\phantomsection` immediately before its
+`\addcontentsline`** in `thesis_main.tex`. `\section*` creates no hyperref
+anchor, so without it the TOC entry silently links to the title page. The
+Glossar (`\printnoidxglossaries`) and the bibliography handle their own anchors.
 
 ## Disabled by design
 

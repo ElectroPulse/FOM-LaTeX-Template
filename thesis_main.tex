@@ -274,7 +274,12 @@
 %-----------------------------------
 % Glossar
 %-----------------------------------
-\usepackage{glossaries}
+% nonumberlist unterdrueckt die Fundstellenliste (Seitenzahlen) hinter jedem
+% Eintrag. Ein Glossar erklaert Begriffe, es weist sie nicht nach; ohne die
+% Zahlen entspricht es dem Abkuerzungsverzeichnis, das ebenfalls keine hat.
+% Die Option muss hier stehen, da \printnoidxglossaries (Plural) selbst keine
+% Optionen entgegennimmt.
+\usepackage[nonumberlist]{glossaries}
 \glstoctrue %Auskommentieren, damit das Glossar nicht im Inhaltsverzeichnis angezeigt wird.
 \makenoidxglossaries
 \input{abkuerzungen/glossar}
@@ -400,7 +405,10 @@
 %-----------------------------------
 % Falls das Abkürzungsverzeichnis nicht im Inhaltsverzeichnis angezeigt werden soll
 % dann folgende Zeile auskommentieren.
-\addcontentsline{toc}{section}{\abbreHeadingName}
+% \phantomsection ist zwingend: acronyms.tex nutzt \section*, erzeugt also keinen
+% Hyperref-Anker. Ohne den Befehl zeigt der Link im Inhaltsverzeichnis auf die
+% Titelseite statt auf dieses Verzeichnis.
+\phantomsection\addcontentsline{toc}{section}{\abbreHeadingName}
 \input{abkuerzungen/acronyms}
 \newpage
 
