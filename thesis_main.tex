@@ -364,7 +364,9 @@
 \input{kapitel/titelseite}
 
 %-----------------------------------
-% Vorwort (optional; bei Verwendung beide Zeilen entkommentieren und unter Inhaltsverzeichnis setcounter entsprechend anpassen)
+% Vorwort (optional; wird nicht verwendet)
+% Bei Bedarf kapitel/vorwort/vorwort.tex anlegen, die beiden folgenden Zeilen
+% entkommentieren und unter Inhaltsverzeichnis setcounter entsprechend anpassen.
 %-----------------------------------
 %\input{kapitel/vorwort/vorwort}
 %\newpage
@@ -382,13 +384,17 @@
 %-----------------------------------
 % Abbildungsverzeichnis
 %-----------------------------------
-\listoffigures
-\newpage
+% Die Arbeit enthält keine Abbildungen. Sobald welche hinzukommen, die beiden
+% folgenden Zeilen wieder entkommentieren.
+%\listoffigures
+%\newpage
 %-----------------------------------
 % Tabellenverzeichnis
 %-----------------------------------
-\listoftables
-\newpage
+% Die Arbeit enthält keine Tabellen. Sobald welche hinzukommen, die beiden
+% folgenden Zeilen wieder entkommentieren.
+%\listoftables
+%\newpage
 %-----------------------------------
 % Abkürzungsverzeichnis
 %-----------------------------------
@@ -404,10 +410,12 @@
 % In Overleaf führt der Einsatz des Symbolverzeichnisses zu einem Fehler, der aber ignoriert werdne kann
 % Falls das Symbolverzeichnis nicht im Inhaltsverzeichnis angezeigt werden soll
 % dann folgende Zeile auskommentieren.
-\phantomsection\addcontentsline{toc}{section}{\symheadingname}
-\input{skripte/symbolDef}
-\listofsymbols
-\newpage
+% Die Arbeit verwendet keine Formelsymbole. Sobald welche hinzukommen, die
+% folgenden Zeilen wieder entkommentieren und in skripte/symbolDef.tex pflegen.
+%\phantomsection\addcontentsline{toc}{section}{\symheadingname}
+%\input{skripte/symbolDef}
+%\listofsymbols
+%\newpage
 
 %-----------------------------------
 % Glossar

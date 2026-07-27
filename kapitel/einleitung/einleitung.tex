@@ -1,16 +1,14 @@
-\section{Einleitung}
-Dies soll eine \LaTeX{}-Vorlage für den persönlichen Gebrauch werden. Sie hat weder einen Anspruch auf Richtigkeit, noch auf Vollständigkeit. Die Quellen liegen auf Github zur allgemeinen Verwendung. Verbesserungen sind jederzeit willkommen.
+\section{Einleitung}\label{sec:einleitung}
 
-\subsection{Zielsetzung}
-Kleiner Reminder für mich in Bezug auf die Dinge, die wir bei der Thesis beachten sollten und \LaTeX{}-Vorlage für die Thesis.
+% Diese Abkürzungen treten im Fließtext ausschließlich als Bestandteil deutscher
+% Komposita bzw. in flektierter Form auf und lassen sich daher nicht über \ac{}
+% einführen. \acused{} meldet sie dennoch dem Abkürzungsverzeichnis.
+\acused{KI}\acused{DORA}\acused{HTTP}\glsadd{devops}%
 
-\subsection{Aufbau der Arbeit}
-Kapitel \ref{infos} enthält die Inhalte des Thesis-Days und alles, was zum inhaltlichen erstellen der Thesis relevant sein könnte. In Kapitel \ref{latexDetails} \nameref{latexDetails} findet ihr wichtige Anmerkungen zu \LaTeX{}, wobei die wirklich wichtigen Dinge im Quelltext dieses Dokumentes stehen (siehe auch die Verzeichnisstruktur in Abbildung \ref{fig:verzeichnisStruktur}).
+Große Sprachmodelle sind in der Softwareentwicklung angekommen: 81\,\% der Befragten des DORA-Reports 2024 berichten eine Prioritätenverschiebung zugunsten von KI.\footcite[\vglf][\pagef 18]{DORA.2024} Eine Mehrfallstudie in drei deutschen Organisationen zeigt den regulären Einsatz in agilen Teams bei häufig fehlenden Regelungen.\footcite[\vglf][\pagef 297 f.]{Neumann.2026} Die Modelle treffen dort auf ein Vorgehensmodell aus kurzen Lieferzyklen, technischer Exzellenz und regelmäßiger Reflexion.\footcite[\vglf][o.\,S.]{Beck.2001}
 
+Die Befundlage ist widersprüchlich. Ein Laborexperiment weist eine um 55,8\,\% kürzere Bearbeitungszeit aus, ein randomisierter Versuch mit erfahrenen Entwicklern dagegen eine um 19\,\% längere.\footcites(\vglf)()[][\pagef 2]{Peng.2023}[][\pagef 2]{Becker.2025} Der DORA-Report verbindet zudem eine um 25\,\% höhere KI-Adoption mit besserer Dokumentationsqualität, aber geringerer Auslieferungsstabilität.\footcite[\vglf][\pagef 37, \pagef 39]{DORA.2024} Ob \glspl{codegenerator} agile Prozesse stärken oder aushöhlen, ist damit offen.
 
-\begin{figure}[H]
-\caption{Verzeichnisstruktur der \LaTeX{}-Datein}\label{fig:verzeichnisStruktur}
-\includegraphics[width=0.9\textwidth]{verzeichnisStruktur}
-\\
-Quelle: Eigene Darstellung
-\end{figure}
+Die Arbeit fragt, welche Potenziale und Risiken der Einsatz KI-gestützter Code-Generatoren in agilen Softwareentwicklungsprozessen mit sich bringt und welche Gestaltungsempfehlungen daraus folgen. Ziel ist deren Systematisierung entlang agiler Praktiken.
+
+Methodisch stützt sich die Arbeit auf eine literaturbasierte Studienauswertung; eigene Erhebungen, Werkzeugvergleiche, juristische Detailfragen und KI-Ethik bleiben ausgeklammert. Kapitel~\ref{sec:grundlagen} klärt die Begriffe, Kapitel~\ref{sec:potenziale} und~\ref{sec:risiken} stellen Potenziale und Risiken gegenüber, Kapitel~\ref{sec:wuerdigung} wägt ab, Kapitel~\ref{sec:fazit} beantwortet die Forschungsfrage.

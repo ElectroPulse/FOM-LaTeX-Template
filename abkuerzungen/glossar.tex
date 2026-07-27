@@ -1,2 +1,121 @@
-\newglossaryentry{glossar}{name={Glossar},description={In einem Glossar werden Fachbegriffe und Fremdwörter mit ihren Erklärungen gesammelt.}}
-\newglossaryentry{glossaries}{name={Glossaries},description={Glossaries ist ein Paket was einen im Rahmen von LaTeX bei der Erstellung eines Glossar unterstützt.}}
+%-----------------------------------------------------------------------------
+% Glossar: Fachbegriffe und fremdsprachige Ausdrücke
+%
+% Es erscheinen nur Einträge, die im Text über \gls{}, \glspl{}, \glslink{}
+% oder \glsadd{} referenziert werden.
+%-----------------------------------------------------------------------------
+
+\newglossaryentry{agile}{
+  name={Agile Softwareentwicklung},
+  description={Vorgehensweise, die Software in kurzen Abständen ausliefert, Anforderungen fortlaufend anpasst und das eigene Vorgehen regelmäßig reflektiert}
+}
+
+\newglossaryentry{agentic}{
+  name={Agentisches Werkzeug},
+  plural={Agentische Werkzeuge},
+  description={KI-gestütztes Werkzeug, das in der Entwicklungsumgebung selbstständig mehrere Arbeitsschritte ausführt, also Dateien durchsucht, ändert und Programme iterativ testet}
+}
+
+\newglossaryentry{codegenerator}{
+  name={Code-Generator},
+  plural={Code-Generatoren},
+  description={Werkzeug, das auf Basis eines großen Sprachmodells aus dem umgebenden Kontext Quellcode vorschlägt oder erzeugt}
+}
+
+\newglossaryentry{codereview}{
+  name={Code Review},
+  plural={Code Reviews},
+  description={Systematische Prüfung von Quellcode durch andere Personen als die verfassende, um Fehler und Qualitätsmängel vor der Übernahme aufzudecken}
+}
+
+\newglossaryentry{debugging}{
+  name={Debugging},
+  description={Systematisches Auffinden, Eingrenzen und Beheben von Fehlern in einem Programm}
+}
+
+\newglossaryentry{devops}{
+  name={DevOps},
+  description={Zusammenführung von Softwareentwicklung (Development) und IT-Betrieb (Operations) mit dem Ziel, Änderungen häufig und zuverlässig auszuliefern}
+}
+
+\newglossaryentry{dod}{
+  name={Definition of Done},
+  description={Formale Beschreibung des Zustands, den ein Increment erreichen muss, um als fertiggestellt zu gelten; dient als gemeinsamer Qualitätsmaßstab des Teams}
+}
+
+\newglossaryentry{increment}{
+  name={Increment},
+  plural={Increments},
+  description={In sich nutzbares Zwischenergebnis, das ein Team am Ende eines Sprints zur bisherigen Produktversion hinzufügt}
+}
+
+\newglossaryentry{konfidenzintervall}{
+  name={Konfidenzintervall},
+  description={Statistischer Wertebereich, der den geschätzten Kennwert mit einer festgelegten Wahrscheinlichkeit überdeckt und damit die Genauigkeit der Schätzung ausdrückt}
+}
+
+\newglossaryentry{opensource}{
+  name={Open Source},
+  description={Software, deren Quellcode öffentlich zugänglich ist und unter einer Lizenz steht, die Nutzung, Weitergabe und Veränderung erlaubt}
+}
+
+\newglossaryentry{overreliance}{
+  name={Overreliance},
+  description={Übermäßiges Vertrauen in die Ausgaben eines KI-Werkzeugs, das dazu führt, dass fehlerhafte Vorschläge ungeprüft übernommen werden}
+}
+
+\newglossaryentry{pairprogramming}{
+  name={Pair Programming},
+  description={Praktik, bei der zwei Entwickelnde gemeinsam an einem Arbeitsplatz denselben Quellcode schreiben und dabei fortlaufend die Rollen tauschen}
+}
+
+\newglossaryentry{repository}{
+  name={Repository},
+  plural={Repositories},
+  description={Versioniert verwaltetes Verzeichnis, in dem der Quellcode eines Projekts samt seiner Änderungshistorie abgelegt wird}
+}
+
+\newglossaryentry{retrospektive}{
+  name={Retrospektive},
+  plural={Retrospektiven},
+  description={Regelmäßiger Termin am Ende eines Sprints, in dem das Team das eigene Vorgehen überprüft und Verbesserungen beschließt}
+}
+
+\newglossaryentry{scrum}{
+  name={Scrum},
+  description={Rahmenwerk der agilen Softwareentwicklung, das die Arbeit in Sprints strukturiert und Rollen, Termine und Artefakte festlegt}
+}
+
+\newglossaryentry{sprint}{
+  name={Sprint},
+  plural={Sprints},
+  description={Fester Zeitraum von höchstens einem Monat, in dem ein Scrum-Team ein nutzbares Increment fertigstellt}
+}
+
+\newglossaryentry{sprintreview}{
+  name={Sprint Review},
+  plural={Sprint Reviews},
+  description={Termin am Ende eines Sprints, in dem das Increment gemeinsam mit den Beteiligten geprüft und das weitere Vorgehen abgestimmt wird}
+}
+
+\newglossaryentry{storypoint}{
+  name={Story Point},
+  plural={Story Points},
+  description={Relative Schätzgröße für den Umfang einer Anforderung, die statt absoluter Zeitangaben den Aufwand im Vergleich zu Referenzanforderungen ausdrückt}
+}
+
+\newglossaryentry{unittest}{
+  name={Unit-Test},
+  plural={Unit-Tests},
+  description={Automatisierter Test, der eine einzelne Programmeinheit isoliert gegen ihre erwartete Funktionsweise prüft}
+}
+
+\newglossaryentry{velocity}{
+  name={Velocity},
+  description={Kennzahl der je Iteration fertiggestellten Story Points; sie dient der realistischen Vorhersage künftiger Iterationen, nicht der Leistungsbewertung}
+}
+
+\newglossaryentry{xp}{
+  name={Extreme Programming},
+  description={Agiles Vorgehensmodell, das die Entwicklung über zwölf Vorgehensweisen wie Pair Programming, testgetriebene Entwicklung und gemeinsame Verantwortlichkeit für den Quellcode ordnet}
+}
